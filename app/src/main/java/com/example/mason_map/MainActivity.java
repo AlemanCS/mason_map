@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        @SuppressWarnings( "deprecation" )
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(SimpleXmlConverterFactory.create())
@@ -79,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 // Testing
                 Log.d(TAG, "onResponce: location:" + items.get(0).getLocation());
                 Log.d(TAG, "onResponce: start:" + items.get(0).getStart());
-
-
             }
 
             @Override
@@ -90,5 +89,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
