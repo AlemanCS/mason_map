@@ -168,7 +168,7 @@ public class Item implements Serializable {
         this.host = host;
     }
 
-    @Override
+
     public String toString() {
         return "Item: { " +
                 "title = '" + this.title + "' " +

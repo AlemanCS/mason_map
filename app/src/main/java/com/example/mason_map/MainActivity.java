@@ -1,7 +1,9 @@
 package com.example.mason_map;
 
 import java.util.List;
+import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_map:
                     mTextMessage.setText(R.string.title_map);
+                    openMaps();
                     return true;
                 case R.id.navigation_schedule:
                     mTextMessage.setText(R.string.title_schedule);
@@ -88,5 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "An Error Occured", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void openMaps(){
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 }
