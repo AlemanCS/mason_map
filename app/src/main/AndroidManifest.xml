@@ -33,7 +33,13 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_map"></activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="@string/title_schedule"></activity>
+        <activity
+            android:name=".FeedActivity"
+            android:label="@string/title_feed"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

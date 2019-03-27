@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/event"
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:layout_marginTop="10dp"
+        android:background="@color/cardview_shadow_end_color"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40px"
+            android:text="Event Title"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/eventStart"
+            android:layout_width="400px"
+            android:layout_height="40px"
+            android:layout_below="@id/eventTitle"
+            android:layout_marginLeft="40px"
+            android:text="Event Start"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/eventEnd"
+            android:layout_width="400px"
+            android:layout_height="40px"
+            android:layout_below="@id/eventTitle"
+            android:layout_marginLeft="40px"
+            android:layout_toRightOf="@id/eventStart"
+            android:text="Event End"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/eventLocation"
+            android:layout_width="match_parent"
+            android:layout_height="40px"
+            android:layout_below="@+id/eventEnd"
+            android:layout_marginLeft="40px"
+            android:text="Event Location"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/eventDiscription"
+            android:layout_width="match_parent"
+            android:layout_height="40px"
+            android:layout_below="@+id/eventLocation"
+            android:layout_marginLeft="40px"
+            android:text="Event Discription"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/eventNavagation"
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:layout_toEndOf="@+id/eventEnd"
+            android:text="Nav" />
+
+        <Button
+            android:id="@+id/eventLink"
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:layout_below="@id/eventNavagation"
+            android:layout_toEndOf="@+id/eventEnd"
+            android:text="Link" />
+
+
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
