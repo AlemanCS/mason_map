@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FeedActivity()).commit();
+        }
+
     }
     /*private void openView(Class<?> destination){
         Intent intent = new Intent(this, destination);
