@@ -1,18 +1,19 @@
 package com.example.mason_map;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    //private TextView mTextMessage;
 
-    private static final String TAG = "MainActivity";
+   // private static final String TAG = "MainActivity";
 
 
 
@@ -21,18 +22,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFrag = null;
             switch (item.getItemId()) {
                 case R.id.navigation_feed:
-                    openView(FeedActivity.class);
-                    return true;
+                    selectedFrag = new FeedActivity();
+                    break;
                 case R.id.navigation_map:
-                    openView(MapsActivity.class);
-                    return true;
+                    selectedFrag = new MapsActivity();
+                    break;
                 case R.id.navigation_schedule:
-                    openView(ScheduleActivity.class);
-                    return true;
+                    selectedFrag = new ScheduleActivity();
+                    break;
             }
-            return false;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFrag).commit();
+            return true;
         }
     };
 
@@ -41,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
-    private void openView(Class<?> destination){
+    /*private void openView(Class<?> destination){
         Intent intent = new Intent(this, destination);
         startActivity(intent);
     }
+    */
 }

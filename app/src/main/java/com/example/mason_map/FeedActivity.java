@@ -1,8 +1,12 @@
 package com.example.mason_map;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mason_map.model.RSS;
@@ -18,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 
-public class FeedActivity extends FragmentActivity {
+public class FeedActivity extends Fragment {
 
     private static final String TAG = "FeedActivity";
 
@@ -28,10 +32,22 @@ public class FeedActivity extends FragmentActivity {
     private ArrayList<Event> events;
 
     @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+        return layoutInflater.inflate(R.layout.activity_feed,viewGroup,false);
+    }
+    /*
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        this.loadFeed();
+    }
+    */
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         this.loadFeed();
     }
 
@@ -61,7 +77,7 @@ public class FeedActivity extends FragmentActivity {
             @Override
             public void onFailure(Call<RSS> call, Throwable t) {
                 Log.e(TAG, "onFailure: Unable to fetch RSS Feed: " + t.getMessage());
-                Toast.makeText(FeedActivity.this, "An Error Occured", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(FeedActivity.this, "An Error Occured", Toast.LENGTH_SHORT).show();
 
                 //TODO: need to add what happens when we cannot connect to feed here.
             }
