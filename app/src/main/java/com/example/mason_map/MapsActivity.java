@@ -20,7 +20,6 @@ import android.support.v4.content.ContextCompat;
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.location.Location;
 import com.google.android.gms.maps.UiSettings;
 import android.widget.CheckBox;
