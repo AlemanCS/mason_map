@@ -107,23 +107,17 @@ public class FeedActivity extends Fragment {
 
             this.events.add(event);
         }
-        list(this.events);
+        this.generateEventList();
 
     }
-    private void list(ArrayList events){
-//            Object[] convert = events.toArray();
-//         Event eventlist[] = new Event[convert.length];
-//            for(int i = 0;i < convert.length;i++){
-//                eventlist[i] = (Event)(convert[i]);
-//            }
 
-           // for(Event e: this.events){
-             //   for(int i = 0;i< events.size();i++){
-              //      eventlist[i] = events.get(i).toString();
-              //  }
-            ArrayAdapter<Event> adapter = new ArrayAdapter<Event>(getActivity(), R.layout.activity_listview,R.id.list_item, this.events);
-            ListView LvEventFeed = (ListView) getView().findViewById(R.id.LvEventFeed);
-            LvEventFeed.setAdapter(adapter);
+    /*
+      Generate the Event List
+     */
+    private void generateEventList(){
+        ListView listView = this.getView().findViewById(R.id.listView);
+        ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
+        listView.setAdapter(customListAdapter);
         }
 
     }
