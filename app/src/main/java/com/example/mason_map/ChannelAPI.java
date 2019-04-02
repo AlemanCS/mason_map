@@ -11,4 +11,5 @@ public interface ChannelAPI {
 
     @GET("events.rss")
     Call<RSS> getChannel();
+
 }
