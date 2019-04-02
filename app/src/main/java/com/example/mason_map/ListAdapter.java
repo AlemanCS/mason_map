@@ -43,7 +43,6 @@ public class ListAdapter extends ArrayAdapter<Event>{
         String location = this.getItem(position).getLocation();
 
         try {
-            final View result;
             final EventHolder holder;
 
             if(convertView == null){
@@ -58,13 +57,10 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 holder.end = convertView.findViewById(R.id.eventEnd);
                 holder.location = convertView.findViewById(R.id.eventLocation);
 
-                result = convertView;
-
                 convertView.setTag(holder);
             }
             else{
                 holder = (EventHolder) convertView.getTag();
-                result = convertView;
             }
             this.lastPos = position;
 
