@@ -68,7 +68,7 @@ public class FeedActivity extends Fragment {
         call.enqueue(new Callback<RSS>() {
             @Override
             public void onResponse(Call<RSS> call, Response<RSS> response) {
-                Log.d(TAG, "onResponce: rss: " + response.body().getItems());
+                //Log.d(TAG, "onResponce: rss: " + response.body().getItems());
                 Log.d(TAG, "onResponce: Server Responce: " + response.toString());
 
                 items = response.body().getItems();
@@ -79,7 +79,6 @@ public class FeedActivity extends Fragment {
             @Override
             public void onFailure(Call<RSS> call, Throwable t) {
                 Log.e(TAG, "onFailure: Unable to fetch RSS Feed: " + t.getMessage());
-                //Toast.makeText(FeedActivity.this, "An Error Occured", Toast.LENGTH_SHORT).show();
 
                 //TODO: need to add what happens when we cannot connect to feed here.
             }

@@ -8,6 +8,20 @@
     <string name="title_schedule">Schedule</string>
     <string name="title_activity_maps">Map</string>
 
+    <string name="tempText">Temp Text</string>
+
+    <!-- Feed's Card Information -->
+
+    <string name="card_startSubtitle">Starts:</string>
+    <string name="card_endSubtitle">Ends:</string>
+    <string name="card_locationSubtitle">Where:</string>
+
+    <string name="card_fav">Favorite Event</string>
+    <string name="card_nav">Navigate to Event</string>
+    <string name="card_link">Hyperlink to Event</string>
+
+    <!-- End Feed's Card Information -->
+
     <string name="play_services_not_installed">Google Play services is not installed on this device.</string>
 
     <!--    Permissions    -->

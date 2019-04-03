@@ -1,7 +1,6 @@
 package com.example.mason_map;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.net.Uri;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class ListAdapter extends ArrayAdapter<Event>{
@@ -22,13 +22,12 @@ public class ListAdapter extends ArrayAdapter<Event>{
 
     private static class EventHolder{
         TextView title;
-        TextView description;
-        TextView category;
         TextView start;
         TextView end;
         TextView location;
-        Button link;
-        Button nav;
+        ImageButton link;
+        ImageButton nav;
+        ImageButton fav;
     }
     public ListAdapter(Context context, int resource, ArrayList<Event> objects){
         super(context, resource, objects);
@@ -60,7 +59,8 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 holder.end = convertView.findViewById(R.id.eventEnd);
                 holder.location = convertView.findViewById(R.id.eventLocation);
                 holder.link = convertView.findViewById(R.id.eventLink);
-                holder.link = convertView.findViewById(R.id.eventNavagation);
+                holder.nav = convertView.findViewById(R.id.eventNavigation);
+                holder.fav = convertView.findViewById(R.id.eventFavorite);
 
                 convertView.setTag(holder);
             }
@@ -70,13 +70,23 @@ public class ListAdapter extends ArrayAdapter<Event>{
             this.lastPos = position;
 
             holder.title.setText(title);
-            holder.start.setText("Starts: " + start);
-            holder.end.setText("Ends:" + end);
+            holder.start.setText(start);
+            holder.end.setText(end);
             holder.location.setText(location);
             holder.link.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                     context.startActivity(browser);
+                }
+            });
+            holder.nav.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //TODO: Add what happens when you click on NAV Button
+                }
+            });
+            holder.fav.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //TODO: Add what happens when you click on SAVE Button
                 }
             });
         }

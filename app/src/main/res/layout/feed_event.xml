@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/event"
         android:layout_width="match_parent"
-        android:layout_height="230px"
+        android:layout_height="@dimen/cardHeight"
         android:layout_marginTop="10dp"
         android:background="@color/cardview_shadow_end_color"
         android:visibility="visible"
@@ -19,58 +19,120 @@
 
         <TextView
             android:id="@+id/eventTitle"
-            android:layout_width="match_parent"
-            android:layout_height="60px"
-            android:text="Event Title"
-            android:textSize="16sp"
+            android:text="@string/tempText"
             tools:layout_editor_absoluteX="0dp"
+
+            android:scrollHorizontally="false"
+            android:minLines="2"
+            android:maxLines="2"
+
+            android:layout_width="@dimen/card_titleWidth"
+            android:layout_height="@dimen/card_titleHeight"
+            android:textSize="@dimen/card_titleSize"
             android:textColor="@color/text" />
+
+        <TextView
+            android:id="@+id/eventStartTitle"
+            android:text="@string/card_startSubtitle"
+            android:layout_below="@id/eventTitle"
+
+            android:layout_width="@dimen/card_subtitleWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:layout_marginStart="@dimen/card_marginStart" />
 
         <TextView
             android:id="@+id/eventStart"
-            android:layout_width="400px"
-            android:layout_height="50px"
+            android:text="@string/tempText"
             android:layout_below="@id/eventTitle"
-            android:layout_marginLeft="40px"
-            android:text="Event Start"
-            android:textSize="14sp"
-            android:textColor="@color/text" />
+            android:layout_toEndOf="@+id/eventStartTitle"
+
+
+            android:textSize="@dimen/card_textSize"
+            android:textColor="@color/text"
+            android:layout_width="@dimen/card_textWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:paddingEnd="@dimen/card_padding"
+            android:paddingStart="@dimen/card_padding"/>
+
+        <TextView
+            android:id="@+id/eventEndTitle"
+            android:text="@string/card_endSubtitle"
+            android:layout_below="@id/eventStart"
+
+            android:layout_width="@dimen/card_subtitleWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:layout_marginStart="@dimen/card_marginStart" />
 
         <TextView
             android:id="@+id/eventEnd"
-            android:layout_width="400px"
-            android:layout_height="50px"
-            android:layout_below="@id/eventTitle"
-            android:layout_marginLeft="50px"
-            android:layout_toRightOf="@id/eventStart"
-            android:text="Event End"
-            android:textSize="14sp"
-            android:textColor="@color/text" />
+            android:text="@string/tempText"
+            android:layout_below="@id/eventStart"
+            android:layout_toEndOf="@+id/eventEndTitle"
+
+            android:textSize="@dimen/card_textSize"
+            android:textColor="@color/text"
+            android:layout_width="@dimen/card_textWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:paddingEnd="@dimen/card_padding"
+            android:paddingStart="@dimen/card_padding"/>
+
+        <TextView
+            android:id="@+id/eventLocationTitle"
+            android:text="@string/card_locationSubtitle"
+            android:layout_below="@id/eventEnd"
+
+            android:layout_width="@dimen/card_subtitleWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:layout_marginStart="@dimen/card_marginStart" />
 
         <TextView
             android:id="@+id/eventLocation"
-            android:layout_width="match_parent"
-            android:layout_height="50px"
+            android:text="@string/tempText"
             android:layout_below="@+id/eventEnd"
-            android:layout_marginLeft="40px"
-            android:text="Event Location"
-            android:textSize="14sp"
-            android:textColor="@color/text"/>
+            android:layout_toEndOf="@+id/eventLocationTitle"
 
-        <Button
-            android:id="@+id/eventNavagation"
-            android:layout_width="wrap_content"
-            android:layout_height="100px"
-            android:layout_toEndOf="@+id/eventEnd"
-            android:text="Nav" />
+            android:textSize="@dimen/card_textSize"
+            android:textColor="@color/text"
+            android:layout_width="@dimen/card_textWidth"
+            android:layout_height="@dimen/card_textHeight"
+            android:paddingEnd="@dimen/card_padding"
+            android:paddingStart="@dimen/card_padding"/>
 
-        <Button
+        <ImageButton
+            android:id="@+id/eventNavigation"
+            android:layout_toEndOf="@+id/eventTitle"
+            android:src="@drawable/ic_nav_black_24dp"
+            android:contentDescription="@string/card_nav"
+
+            android:layout_marginStart="@dimen/card_buttonMarginStart"
+            android:layout_width="@dimen/card_buttonWidth"
+            android:layout_height="@dimen/card_buttonHeight"
+            android:background="@color/transparent" />
+@
+        <ImageButton
+            android:id="@+id/eventFavorite"
+            android:layout_toEndOf="@+id/eventTitle"
+            android:layout_below="@id/eventNavigation"
+            android:src="@drawable/ic_favorite_black_24dp"
+            android:contentDescription="@string/card_fav"
+
+            android:layout_marginStart="@dimen/card_buttonMarginStart"
+            android:layout_width="@dimen/card_buttonWidth"
+            android:layout_height="@dimen/card_buttonHeight"
+            android:background="@color/transparent" />
+
+        <ImageButton
             android:id="@+id/eventLink"
-            android:layout_width="wrap_content"
-            android:layout_height="100px"
-            android:layout_below="@id/eventNavagation"
-            android:layout_toEndOf="@+id/eventEnd"
-            android:text="Link" />
+            android:text="Link"
+            android:layout_toEndOf="@+id/eventTitle"
+            android:layout_below="@id/eventFavorite"
+            android:src="@drawable/ic_link_black_24dp"
+            android:contentDescription="@string/card_link"
+
+            android:layout_marginStart="@dimen/card_buttonMarginStart"
+            android:layout_width="@dimen/card_buttonWidth"
+            android:layout_height="@dimen/card_buttonHeight"
+            android:background="@color/transparent" />
 
 
     </RelativeLayout>
