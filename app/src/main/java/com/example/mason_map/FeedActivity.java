@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.example.mason_map.model.RSS;
 import com.example.mason_map.model.item.Item;
@@ -105,6 +107,18 @@ public class FeedActivity extends Fragment {
 
             this.events.add(event);
         }
+        this.generateEventList();
 
     }
-}
+
+    /*
+      Generate the Event List
+     */
+    private void generateEventList(){
+        ListView listView = this.getView().findViewById(R.id.listView);
+        ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
+        listView.setAdapter(customListAdapter);
+        }
+
+    }
+
