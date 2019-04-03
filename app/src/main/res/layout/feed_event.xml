@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/event"
         android:layout_width="match_parent"
-        android:layout_height="200px"
+        android:layout_height="230px"
         android:layout_marginTop="10dp"
         android:background="@color/cardview_shadow_end_color"
         android:visibility="visible"
@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/eventStart"
             android:layout_width="400px"
-            android:layout_height="40px"
+            android:layout_height="50px"
             android:layout_below="@id/eventTitle"
             android:layout_marginLeft="40px"
             android:text="Event Start"
@@ -39,9 +39,9 @@
         <TextView
             android:id="@+id/eventEnd"
             android:layout_width="400px"
-            android:layout_height="40px"
+            android:layout_height="50px"
             android:layout_below="@id/eventTitle"
-            android:layout_marginLeft="40px"
+            android:layout_marginLeft="50px"
             android:layout_toRightOf="@id/eventStart"
             android:text="Event End"
             android:textSize="14sp"
@@ -50,7 +50,7 @@
         <TextView
             android:id="@+id/eventLocation"
             android:layout_width="match_parent"
-            android:layout_height="40px"
+            android:layout_height="50px"
             android:layout_below="@+id/eventEnd"
             android:layout_marginLeft="40px"
             android:text="Event Location"
