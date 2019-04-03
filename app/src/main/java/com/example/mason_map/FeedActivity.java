@@ -1,6 +1,7 @@
 package com.example.mason_map;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,6 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.Call;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.internal.EverythingIsNonNull;
 
 
 public class FeedActivity extends Fragment {
@@ -33,8 +35,9 @@ public class FeedActivity extends Fragment {
     private List<Item> items;
     private ArrayList<Event> events;
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
+    public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
         return layoutInflater.inflate(R.layout.activity_feed,viewGroup,false);
     }
     /*
@@ -66,16 +69,18 @@ public class FeedActivity extends Fragment {
         Call<RSS> call = channelAPI.getChannel();
 
         call.enqueue(new Callback<RSS>() {
+            @EverythingIsNonNull
             @Override
             public void onResponse(Call<RSS> call, Response<RSS> response) {
-                //Log.d(TAG, "onResponce: rss: " + response.body().getItems());
-                Log.d(TAG, "onResponce: Server Responce: " + response.toString());
+                //Log.d(TAG, "onResponse: rss: " + response.body().getItems());
+                Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
                 items = response.body().getItems();
 
                 createEvents();
             }
 
+            @EverythingIsNonNull
             @Override
             public void onFailure(Call<RSS> call, Throwable t) {
                 Log.e(TAG, "onFailure: Unable to fetch RSS Feed: " + t.getMessage());

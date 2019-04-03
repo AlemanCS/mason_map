@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.net.Uri;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -37,8 +37,9 @@ public class ListAdapter extends ArrayAdapter<Event>{
         this.lastPos = 0;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         String title = this.getItem(position).getTitle();
         String start = this.getItem(position).getStart();
         String end = this.getItem(position).getEnd();
@@ -87,6 +88,8 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on SAVE Button
+
+
                 }
             });
         }
