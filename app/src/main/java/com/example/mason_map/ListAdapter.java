@@ -28,6 +28,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
         TextView end;
         TextView location;
         Button link;
+        Button nav;
     }
     public ListAdapter(Context context, int resource, ArrayList<Event> objects){
         super(context, resource, objects);
@@ -59,6 +60,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 holder.end = convertView.findViewById(R.id.eventEnd);
                 holder.location = convertView.findViewById(R.id.eventLocation);
                 holder.link = convertView.findViewById(R.id.eventLink);
+                holder.link = convertView.findViewById(R.id.eventNavagation);
 
                 convertView.setTag(holder);
             }
