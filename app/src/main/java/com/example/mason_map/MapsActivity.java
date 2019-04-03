@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,7 +28,7 @@ import android.widget.Toast;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
-        ActivityCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnPoiClickListener {
 
 
     private static final String TAG = "MapsActivity";
@@ -71,11 +72,20 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
+        mMap.setOnPoiClickListener(this);
         /* Add a marker to George Mason and move the camera
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(georgeMason));
         */
+    }
+
+    public void onPoiClick(PointOfInterest poi) {
+        Toast.makeText(getActivity(), "Clicked: " +
+                        poi.name + "\nPlace ID:" + poi.placeId +
+                        "\nLatitude:" + poi.latLng.latitude +
+                        " Longitude:" + poi.latLng.longitude,
+                Toast.LENGTH_SHORT).show();
     }
 
 
