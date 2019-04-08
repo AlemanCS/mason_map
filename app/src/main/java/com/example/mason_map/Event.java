@@ -23,9 +23,44 @@ public class Event {
         this.link = link;
         this.description = description;
         this.category = category;
-        this.start = start;
-        this.end = end;
+        this.start = this.parseTime(start);
+        this.end = this.parseTime(end);
         this.location = location;
+    }
+
+    /*
+      Remove the Seconds and GMT from the time slot along with adding AM/ PM and Changing form Military time.
+     */
+    public String parseTime(String time){
+        String prefix, hour, min;
+        int h;
+
+        //Remove the Seconds and GMT from the time slot.
+        time = time.replace(":00 GMT", "");
+
+        //Grab each section of the date.
+        prefix = time.substring(0, time.length() - 5);
+        hour = time.substring(time.length()-5, time.length() - 3);
+        min = time.substring(time.length()-3);
+
+        h = Integer.parseInt(hour);
+
+        //Change From GMT to our time zone.
+        h = ((h + 43 ) % 24) + 1;
+
+
+        //Add PM or AM
+        if(h > 12){
+            min = min.concat(" PM");
+        }
+        else{
+            min = min.concat(" AM");
+        }
+
+        //Change from Military Time to Standard.
+        h = (h % 12);
+
+        return String.format("%s %d%s", prefix, h, min);
     }
 
     public String getTitle() {
@@ -65,7 +100,7 @@ public class Event {
     }
 
     public void setStart(String start) {
-        this.start = start;
+        this.start = this.parseTime(start);
     }
 
     public String getEnd() {
@@ -73,7 +108,7 @@ public class Event {
     }
 
     public void setEnd(String end) {
-        this.end = end;
+        this.end = this.parseTime(end);
     }
 
     public String getLocation() {
