@@ -143,14 +143,18 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
             Address address = list.get(0);
             Log.d(TAG,"found a location" + address.toString());
 
-            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM);
+            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
         }
 
     }
 
-    private void moveCamera(LatLng Latlng,float zoom){
+    private void moveCamera(LatLng Latlng,float zoom, String title){
         //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
+
+        MarkerOptions options = new MarkerOptions().position(Latlng).title(title);
+
+        mMap.addMarker(options);
 
 
 
