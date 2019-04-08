@@ -89,6 +89,9 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on SAVE Button
 
+                    int position = (Integer) v.getTag();
+                    Event event = getItem(position);
+
 
                 }
             });
