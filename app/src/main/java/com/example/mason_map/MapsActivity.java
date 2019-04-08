@@ -88,7 +88,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
                         || event.getAction() == KeyEvent.KEYCODE_ENTER){
 
                     //somthing
-                    geolocate();
+                    geoLocate();
 
                 }
                 return false;
@@ -126,7 +126,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         */
     }
 
-    private void geolocate(){
+    private void geoLocate(){
         Log.d(TAG,"GeoLocate: GeoLocating");
 
         String seachString = mSearchText.getText().toString();
