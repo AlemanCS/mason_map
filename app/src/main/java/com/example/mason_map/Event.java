@@ -14,8 +14,10 @@ public class Event {
     private String end;
     private String location;
 
-    public Event(){
+    boolean cancelled;
 
+    public Event(){
+        this.cancelled = false;
     }
 
     public Event(String title, String link, String description, List<String> category, String start, String end, String location) {
@@ -26,12 +28,13 @@ public class Event {
         this.start = this.parseTime(start);
         this.end = this.parseTime(end);
         this.location = location;
+        this.cancelled = false;
     }
 
     /*
       Remove the Seconds and GMT from the time slot along with adding AM/ PM and Changing form Military time.
      */
-    public String parseTime(String time){
+    private String parseTime(String time){
         String prefix, hour, min;
         int h;
 
@@ -68,6 +71,9 @@ public class Event {
     }
 
     public void setTitle(String title) {
+        if(title.contains("Cancelled")){
+            this.cancelled = true;
+        }
         this.title = title;
     }
 
@@ -117,5 +123,8 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public boolean isCancelled(){
+        return this.cancelled;
     }
 }
