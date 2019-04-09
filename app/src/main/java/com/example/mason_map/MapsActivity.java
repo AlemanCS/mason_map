@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     private static final String TAG = "MapsActivity";
 
-    private EditText mSearchText;
+    private SearchView mSearchText;
 
     private static final float DEFAULT_ZOOM = 15f;
 
@@ -70,27 +71,24 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSearchText = (EditText) view.findViewById(R.id.mapSearch);
+        mSearchText = (SearchView) view.findViewById(R.id.mapSearch);
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
     }
 
     private void init(){
-        Log.d(TAG, " Init:initializing");
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        SearchView searching = this.getView().findViewById(R.id.mapSearch);
+        searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public boolean onQueryTextSubmit(String input) {
+                geoLocate(input);
+                return false;
+            }
 
-                if(actionId == EditorInfo.IME_ACTION_SEARCH
-                        || actionId == EditorInfo.IME_ACTION_DONE
-                        || event.getAction() == KeyEvent.ACTION_DOWN
-                        || event.getAction() == KeyEvent.KEYCODE_ENTER){
-
-                    //somthing
-                    geoLocate();
-
-                }
+            @Override
+            public boolean onQueryTextChange(String input) {
+                geoLocate(input);
                 return false;
             }
         });
@@ -126,17 +124,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         */
     }
 
-    private void geoLocate(){
+    private void geoLocate(String input){
         Log.d(TAG,"GeoLocate: GeoLocating");
-
-        String seachString = mSearchText.getText().toString();
-
-        Log.d(TAG, "This is What You Entered: '" + seachString + "'.\n");
 
         Geocoder geocoder = new Geocoder(getActivity());
         List<Address> list = new ArrayList<>();
         try{
-            list = geocoder.getFromLocationName(seachString, 1);
+            list = geocoder.getFromLocationName(input, 1);
         }catch(IOException e){
             Log.e(TAG,"GeoLocate: IOException : " + e.getMessage());
         }
