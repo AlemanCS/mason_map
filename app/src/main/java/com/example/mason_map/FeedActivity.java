@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -118,11 +119,32 @@ public class FeedActivity extends Fragment {
     /*
       Generate the Event List
      */
-    private void generateEventList(){
+    private void generateEventList() {
         ListView listView = this.getView().findViewById(R.id.listView);
         ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
         listView.setAdapter(customListAdapter);
-        }
+        search(customListAdapter, this.events);
+    }
+        private void search(final ListAdapter customListAdapter,final ArrayList<Event> events) {
+            SearchView searching = this.getView().findViewById(R.id.searchView);
+            searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+//                    if (events.contains(s)) {
+//                        customListAdapter.getFilter().filter(s);
+//                    }
 
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                     //String text = s;
+                    //customListAdapter.getFilter().filter(s);
+                    customListAdapter.filtering(s, events);
+                    return false;
+                }
+            });
+        }
     }
 

@@ -1,6 +1,8 @@
 package com.example.mason_map;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,8 @@ public class ListAdapter extends ArrayAdapter<Event>{
     public final Context context;
     public int resource;
     private int lastPos;
+    private List<Event> extra = null;
+
 
     private static class EventHolder{
         TextView title;
@@ -35,6 +39,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
         this.resource = resource;
         this.context = context;
         this.lastPos = 0;
+        this.extra = extra;
     }
 
     @NonNull
@@ -99,5 +104,30 @@ public class ListAdapter extends ArrayAdapter<Event>{
         finally{
             return convertView;
         }
+    }
+    public void filtering(String s, final ArrayList<Event> events){
+        s = s.toLowerCase(Locale.getDefault());
+        //extra.clear();
+        if(s.length() == 0){
+            extra.addAll(events);
+        }
+        else {
+            for (Event e : events) {
+                if (e.getTitle().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                } else if (e.getLocation().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                } else if (e.getDescription().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                } else if (e.getEnd().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                } else if (e.getStart().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                } else if (e.getLink().toLowerCase(Locale.getDefault()).contains(s)) {
+                    extra.add(e);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
