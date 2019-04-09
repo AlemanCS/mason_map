@@ -21,8 +21,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
     public final Context context;
     public int resource;
     private int lastPos;
-    private List<Event> extra = null;
-
+    ArrayList<Event> events;
 
     private static class EventHolder{
         TextView title;
@@ -39,7 +38,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
         this.resource = resource;
         this.context = context;
         this.lastPos = 0;
-        this.extra = extra;
+        this.events = objects;
     }
 
     @NonNull
@@ -105,28 +104,36 @@ public class ListAdapter extends ArrayAdapter<Event>{
             return convertView;
         }
     }
-    public void filtering(String s, final ArrayList<Event> events){
-        s = s.toLowerCase(Locale.getDefault());
-        //extra.clear();
-        if(s.length() == 0){
-            extra.addAll(events);
+    public void filtering(String input, final ArrayList<Event> idk){
+
+        ArrayList<Event> extra = new ArrayList<>();
+
+        input = input.toLowerCase(Locale.getDefault());
+
+        if(input.length() == 0){
+            extra.addAll(this.events);
         }
         else {
-            for (Event e : events) {
-                if (e.getTitle().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
-                } else if (e.getLocation().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
-                } else if (e.getDescription().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
-                } else if (e.getEnd().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
-                } else if (e.getStart().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
-                } else if (e.getLink().toLowerCase(Locale.getDefault()).contains(s)) {
-                    extra.add(e);
+            for (Event event : this.events) {
+                if (event.getTitle().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
+                } else if (event.getLocation().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
+                } else if (event.getDescription().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
+                } else if (event.getEnd().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
+                } else if (event.getStart().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
+                } else if (event.getLink().toLowerCase(Locale.getDefault()).contains(input)) {
+                    extra.add(event);
                 }
             }
+        }
+        this.clear();
+
+        for(Event event : extra){
+            this.add(event);
         }
         notifyDataSetChanged();
     }

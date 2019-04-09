@@ -1,12 +1,17 @@
 package com.example.mason_map;
 
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.PointOfInterest;
@@ -23,8 +28,19 @@ import android.Manifest;
 import android.support.annotation.NonNull;
 import android.location.Location;
 import com.google.android.gms.maps.UiSettings;
+
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
+import android.widget.EditText;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLocationButtonClickListener,
         OnMyLocationClickListener,
@@ -32,6 +48,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
 
     private static final String TAG = "MapsActivity";
+
+    private EditText mSearchText;
+
+    private static final float DEFAULT_ZOOM = 15f;
 
     private GoogleMap mMap;
 
@@ -42,17 +62,38 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-        return layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+         View view =layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        mSearchText = (EditText) view.findViewById(R.id.mapSearch);
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+    }
+
+    private void init(){
+        Log.d(TAG, " Init:initializing");
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == KeyEvent.ACTION_DOWN
+                        || event.getAction() == KeyEvent.KEYCODE_ENTER){
+
+                    //somthing
+                    geoLocate();
+
+                }
+                return false;
+            }
+        });
     }
 
 
@@ -69,15 +110,56 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        LatLng georgeMason = new LatLng(38.8315, -77.3115);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
+
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
         mMap.setOnPoiClickListener(this);
+
+        init();
         /* Add a marker to George Mason and move the camera
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(georgeMason));
         */
+    }
+
+    private void geoLocate(){
+        Log.d(TAG,"GeoLocate: GeoLocating");
+
+        String seachString = mSearchText.getText().toString();
+
+        Log.d(TAG, "This is What You Entered: '" + seachString + "'.\n");
+
+        Geocoder geocoder = new Geocoder(getActivity());
+        List<Address> list = new ArrayList<>();
+        try{
+            list = geocoder.getFromLocationName(seachString, 1);
+        }catch(IOException e){
+            Log.e(TAG,"GeoLocate: IOException : " + e.getMessage());
+        }
+
+        if(list.size() > 0){
+            Address address = list.get(0);
+            Log.d(TAG,"found a location" + address.toString());
+
+            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
+        }
+
+    }
+
+    private void moveCamera(LatLng Latlng,float zoom, String title){
+        //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
+
+        MarkerOptions options = new MarkerOptions().position(Latlng).title(title);
+
+        mMap.addMarker(options);
+
+
+
     }
 
     public void onPoiClick(PointOfInterest poi) {
