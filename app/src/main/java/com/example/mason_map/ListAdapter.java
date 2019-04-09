@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 public class ListAdapter extends ArrayAdapter<Event>{
 
+    public static final String TAG = "List Adapter";
+
     public final Context context;
     public int resource;
     private int lastPos;
@@ -92,47 +94,47 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on SAVE Button
-
-
                 }
             });
         }
         catch(Exception exception){
-            Log.e("List Adapter Error", "getView: ", exception);
+            Log.e(TAG, "getView: ", exception);
         }
         finally{
             return convertView;
         }
     }
-    public void filtering(String input, final ArrayList<Event> idk){
-
-        ArrayList<Event> extra = new ArrayList<>();
+    public void filtering(String input){
+        ArrayList<Event> result = new ArrayList<>();
+        Log.d(TAG, "Searched for: " + input);
 
         input = input.toLowerCase(Locale.getDefault());
 
         if(input.length() == 0){
-            extra.addAll(this.events);
+            result.addAll(this.events);
         }
         else {
             for (Event event : this.events) {
                 if (event.getTitle().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 } else if (event.getLocation().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 } else if (event.getDescription().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 } else if (event.getEnd().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 } else if (event.getStart().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 } else if (event.getLink().toLowerCase(Locale.getDefault()).contains(input)) {
-                    extra.add(event);
+                    result.add(event);
                 }
             }
         }
+        //Remove all of the current List Items.
         this.clear();
 
-        for(Event event : extra){
+        //Repopulate all the list items from the search results.
+        for(Event event : result){
             this.add(event);
         }
         notifyDataSetChanged();

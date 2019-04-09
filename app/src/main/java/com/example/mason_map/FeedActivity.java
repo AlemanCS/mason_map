@@ -130,19 +130,14 @@ public class FeedActivity extends Fragment {
         SearchView searching = this.getView().findViewById(R.id.feedSearch);
         searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-//                   if (events.contains(s)) {
-//                       customListAdapter.getFilter().filter(s);
-//                    }
-
+            public boolean onQueryTextSubmit(String input) {
+                customListAdapter.filtering(input);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                //String text = s;
-                //customListAdapter.getFilter().filter(s);
-                customListAdapter.filtering(s, events);
+            public boolean onQueryTextChange(String input) {
+                customListAdapter.filtering(input);
                 return false;
                 }
             });

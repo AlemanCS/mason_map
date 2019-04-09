@@ -9,13 +9,16 @@
 
     <dimen name="card_titleSize">16sp</dimen>
     <dimen name="card_titleWidth">365dp</dimen>
-    <dimen name="card_titleHeight">40dp</dimen>
+    <dimen name="card_titleHeight">48dp</dimen>
+    <dimen name="card_titleMargin">2dp</dimen>
+    <dimen name="card_titleTBPadding">3dp</dimen>
+    <dimen name="card_titleLRPadding">8dp</dimen>
 
     <dimen name="card_textSize">14sp</dimen>
-    <dimen name="card_textWidth">300dp</dimen>
+    <dimen name="card_textWidth">302dp</dimen>
     <dimen name="card_textHeight">20dp</dimen>
     <dimen name="card_marginStart">15dp</dimen>
-    <dimen name="card_padding">2dp</dimen>
+    <dimen name="card_padding">5dp</dimen>
 
     <dimen name="card_subtitleWidth">50dp</dimen>
 
