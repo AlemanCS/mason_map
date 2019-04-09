@@ -123,15 +123,18 @@ public class FeedActivity extends Fragment {
         ListView listView = this.getView().findViewById(R.id.listView);
         ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
         listView.setAdapter(customListAdapter);
-        search(customListAdapter, this.events);
+        search(customListAdapter);
     }
-    private void search(final ListAdapter customListAdapter,final ArrayList<Event> events) {
+    private void search(final ListAdapter customListAdapter) {
 
         SearchView searching = this.getView().findViewById(R.id.feedSearch);
+
+        searching.setFocusable(false);
+
         searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String input) {
-                customListAdapter.filtering(input);
+                //customListAdapter.filtering(input);
                 return false;
             }
 

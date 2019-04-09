@@ -9,14 +9,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/feedSearch"
         android:iconifiedByDefault="false"
-        android:queryHint="Search here" />
+        android:queryHint="Search here"
+        android:windowSoftInputMode="stateHidden"
+        android:focusedByDefault="false"/>
 
     <ListView
         android:id="@+id/listView"
         android:layout_width="399dp"
         android:layout_height="580dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp" />
 
 </RelativeLayout>
