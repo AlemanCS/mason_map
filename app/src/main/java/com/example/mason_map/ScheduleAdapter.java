@@ -1,25 +1,23 @@
 package com.example.mason_map;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
-import android.net.Uri;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ListAdapter extends ArrayAdapter<Event>{
+import java.util.ArrayList;
+import java.util.Locale;
 
-    public static final String TAG = "List Adapter";
+public class ScheduleAdapter extends ArrayAdapter<Event>{
+
+    public static final String TAG = "Schedule Adapter";
 
     public final Context context;
     public int resource;
@@ -35,7 +33,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
         ImageButton nav;
         ImageButton fav;
     }
-    public ListAdapter(Context context, int resource, ArrayList<Event> objects){
+    public ScheduleAdapter(Context context, int resource, ArrayList<Event> objects){
         super(context, resource, objects);
 
         this.resource = resource;
@@ -115,43 +113,5 @@ public class ListAdapter extends ArrayAdapter<Event>{
         finally{
             return convertView;
         }
-    }
-
-    public void filtering(String input){
-        ArrayList<Event> result = new ArrayList<>();
-
-        //Remove all of the current List Items.
-        if(!this.isEmpty()) {
-            this.clear();
-        }
-
-        input = input.toLowerCase(Locale.getDefault());
-
-        //When there isn't something to search for, show all...
-        if(input.length() == 0){
-            this.addAll(this.events);
-        }
-        else {
-            //Search for events matching input terms
-            for (Event event : this.events) {
-                if (event.getTitle().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                } else if (event.getLocation().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                } else if (event.getDescription().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                } else if (event.getEnd().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                } else if (event.getStart().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                } else if (event.getLink().toLowerCase(Locale.getDefault()).contains(input)) {
-                    result.add(event);
-                }
-            }
-            //Add them to the system.
-            this.addAll(result);
-        }
-
-        this.notifyDataSetChanged();
     }
 }

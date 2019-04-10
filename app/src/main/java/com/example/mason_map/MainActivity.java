@@ -7,16 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
 
-    //private TextView mTextMessage;
-
-   // private static final String TAG = "MainActivity";
-
-    public ArrayList<Event> events;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -27,12 +24,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_feed:
                     selectedFrag = new FeedActivity();
+                    Log.d(TAG, "Navigation to Feed.");
                     break;
                 case R.id.navigation_map:
                     selectedFrag = new MapsActivity();
+                    Log.d(TAG, "Navigation to Map.");
                     break;
                 case R.id.navigation_schedule:
                     selectedFrag = new ScheduleActivity();
+                    Log.d(TAG, "Navigation to Schedule.");
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.events = new ArrayList<>();
-
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -57,9 +55,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    /*private void openView(Class<?> destination){
-        Intent intent = new Intent(this, destination);
-        startActivity(intent);
-    }
-    */
 }
