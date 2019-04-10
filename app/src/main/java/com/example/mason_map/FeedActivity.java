@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.ArrayAdapter;
@@ -123,11 +124,11 @@ public class FeedActivity extends Fragment {
         ListView listView = this.getView().findViewById(R.id.listView);
         ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
         listView.setAdapter(customListAdapter);
-        search(customListAdapter);
+        this.search(customListAdapter);
     }
     private void search(final ListAdapter customListAdapter) {
 
-        SearchView searching = this.getView().findViewById(R.id.feedSearch);
+        final SearchView searching = this.getView().findViewById(R.id.feedSearch);
 
         searching.setFocusable(false);
 
@@ -145,5 +146,6 @@ public class FeedActivity extends Fragment {
                 }
             });
         }
+
     }
 

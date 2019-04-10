@@ -40,12 +40,19 @@ public class ListAdapter extends ArrayAdapter<Event>{
         this.resource = resource;
         this.context = context;
         this.lastPos = 0;
-        this.events = objects;
+        this.events = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+
+        //When the event isn't already in the list, add to list.
+        if(!events.contains(this.getItem(position))) {
+            this.events.add(this.getItem(position));
+        }
+
+        //Get event data
         String title = this.getItem(position).getTitle();
         String start = this.getItem(position).getStart();
         String end = this.getItem(position).getEnd();
@@ -61,6 +68,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
 
                 holder = new EventHolder();
 
+                //Get the required Elements:
                 holder.title = convertView.findViewById(R.id.eventTitle);
                 holder.start = convertView.findViewById(R.id.eventStart);
                 holder.end = convertView.findViewById(R.id.eventEnd);
@@ -82,6 +90,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.location.setText(location);
             holder.link.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    //Navigate to web page
                     Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                     context.startActivity(browser);
                 }
@@ -104,16 +113,23 @@ public class ListAdapter extends ArrayAdapter<Event>{
             return convertView;
         }
     }
+
     public void filtering(String input){
         ArrayList<Event> result = new ArrayList<>();
-        Log.d(TAG, "Searched for: " + input);
+
+        //Remove all of the current List Items.
+        if(!this.isEmpty()) {
+            this.clear();
+        }
 
         input = input.toLowerCase(Locale.getDefault());
 
+        //When there isn't something to search for, show all...
         if(input.length() == 0){
-            result.addAll(this.events);
+            this.addAll(this.events);
         }
         else {
+            //Search for events matching input terms
             for (Event event : this.events) {
                 if (event.getTitle().toLowerCase(Locale.getDefault()).contains(input)) {
                     result.add(event);
@@ -129,14 +145,10 @@ public class ListAdapter extends ArrayAdapter<Event>{
                     result.add(event);
                 }
             }
+            //Add them to the system.
+            this.addAll(result);
         }
-        //Remove all of the current List Items.
-        this.clear();
 
-        //Repopulate all the list items from the search results.
-        for(Event event : result){
-            this.add(event);
-        }
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 }
