@@ -1,7 +1,5 @@
 package com.example.mason_map;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;

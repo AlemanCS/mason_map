@@ -1,12 +1,10 @@
 package com.example.mason_map;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -19,12 +17,12 @@ import android.widget.TextView;
 
 public class ListAdapter extends ArrayAdapter<Event>{
 
-    public static final String TAG = "List Adapter";
+    private static final String TAG = "List Adapter";
 
-    public final Context context;
-    public int resource;
+    private final Context context;
+    private int resource;
     private int lastPos;
-    ArrayList<Event> events;
+    private ArrayList<Event> events;
 
     private static class EventHolder{
         TextView title;
@@ -112,9 +110,9 @@ public class ListAdapter extends ArrayAdapter<Event>{
         catch(Exception exception){
             Log.e(TAG, "getView: ", exception);
         }
-        finally{
-            return convertView;
-        }
+
+        return convertView;
+
     }
 
     public void filtering(String input){

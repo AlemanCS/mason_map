@@ -116,7 +116,7 @@
             android:layout_width="@dimen/card_buttonWidth"
             android:layout_height="@dimen/card_buttonHeight"
             android:background="@color/transparent" />
-@
+
         <ImageButton
             android:id="@+id/eventFavorite"
             android:layout_toEndOf="@+id/eventTitle"
@@ -132,7 +132,7 @@
 
         <ImageButton
             android:id="@+id/eventLink"
-            android:text="Link"
+            android:text="@string/card_link"
             android:layout_toEndOf="@+id/eventTitle"
             android:layout_below="@id/eventFavorite"
             android:src="@drawable/ic_link_black_24dp"

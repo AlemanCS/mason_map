@@ -63,8 +63,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-         View view =layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
-         return view;
+         return layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
     }
 
     @Override

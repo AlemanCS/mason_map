@@ -8,10 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.SearchView;
-import android.widget.Toast;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.mason_map.model.RSS;
@@ -59,7 +56,7 @@ public class FeedActivity extends Fragment {
     }
 
     /* Load the items from the provided RSS Feed */
-    void loadFeed(){
+    private void loadFeed(){
         @SuppressWarnings( "deprecation" )
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

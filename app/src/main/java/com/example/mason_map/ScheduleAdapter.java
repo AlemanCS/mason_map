@@ -13,16 +13,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class ScheduleAdapter extends ArrayAdapter<Event>{
 
-    public static final String TAG = "Schedule Adapter";
+    private static final String TAG = "Schedule Adapter";
 
-    public final Context context;
-    public int resource;
+    private final Context context;
+    private int resource;
     private int lastPos;
-    ArrayList<Event> events;
+    private ArrayList<Event> events;
 
     private static class EventHolder{
         TextView title;
@@ -111,8 +110,8 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
         catch(Exception exception){
             Log.e(TAG, "getView: ", exception);
         }
-        finally{
-            return convertView;
-        }
+
+        return convertView;
+
     }
 }

@@ -14,9 +14,9 @@ import android.widget.ListView;
 
 public class ScheduleActivity extends Fragment {
 
-    public static String TAG = "Schedule Activity";
+    private static String TAG = "Schedule Activity";
 
-    public static ArrayList<Event> events;
+    private static ArrayList<Event> events;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
