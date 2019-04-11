@@ -71,7 +71,7 @@ public class FeedActivity extends Fragment {
             @EverythingIsNonNull
             @Override
             public void onResponse(Call<RSS> call, Response<RSS> response) {
-                //Log.d(TAG, "onResponse: rss: " + response.body().getItems());
+                Log.d(TAG, "onResponse: rss: " + response.body().getItems());
                 Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
                 items = response.body().getItems();

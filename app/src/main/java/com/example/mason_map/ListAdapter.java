@@ -102,7 +102,6 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on SAVE Button
-
                     ScheduleActivity.populateListView(getItem(position));
                 }
             });

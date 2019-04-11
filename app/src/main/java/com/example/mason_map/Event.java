@@ -11,8 +11,8 @@ public class Event {
     private String start;
     private String end;
     private String location;
-
     private boolean cancelled;
+
 
     public Event(){
         this.cancelled = false;
@@ -64,7 +64,6 @@ public class Event {
         if(h == 0){
             h = 12;
         }
-
         return String.format(Locale.getDefault(), "%s %d%s", prefix, h, min);
     }
 
