@@ -1,9 +1,7 @@
 package com.example.mason_map;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-
 import java.util.List;
+import java.util.Locale;
 
 public class Event {
     private String title;
@@ -13,8 +11,8 @@ public class Event {
     private String start;
     private String end;
     private String location;
+    private boolean cancelled;
 
-    boolean cancelled;
 
     public Event(){
         this.cancelled = false;
@@ -63,7 +61,10 @@ public class Event {
         //Change from Military Time to Standard.
         h = (h % 12);
 
-        return String.format("%s %d%s", prefix, h, min);
+        if(h == 0){
+            h = 12;
+        }
+        return String.format(Locale.getDefault(), "%s %d%s", prefix, h, min);
     }
 
     public String getTitle() {

@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-import android.widget.ArrayAdapter;
+import android.widget.SearchView;
 import android.widget.ListView;
 
 import com.example.mason_map.model.RSS;
@@ -57,7 +56,7 @@ public class FeedActivity extends Fragment {
     }
 
     /* Load the items from the provided RSS Feed */
-    void loadFeed(){
+    private void loadFeed(){
         @SuppressWarnings( "deprecation" )
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -118,10 +117,31 @@ public class FeedActivity extends Fragment {
     /*
       Generate the Event List
      */
-    private void generateEventList(){
+    private void generateEventList() {
         ListView listView = this.getView().findViewById(R.id.listView);
         ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
         listView.setAdapter(customListAdapter);
+        this.search(customListAdapter);
+    }
+    private void search(final ListAdapter customListAdapter) {
+
+        final SearchView searching = this.getView().findViewById(R.id.feedSearch);
+
+        searching.setFocusable(false);
+
+        searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String input) {
+                //customListAdapter.filtering(input);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String input) {
+                customListAdapter.filtering(input);
+                return false;
+                }
+            });
         }
 
     }

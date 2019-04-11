@@ -26,10 +26,14 @@
             android:minLines="2"
             android:maxLines="2"
 
+            android:background="@color/masonGreen"
             android:layout_width="@dimen/card_titleWidth"
             android:layout_height="@dimen/card_titleHeight"
+            android:layout_margin="@dimen/card_titleMargin"
+            android:paddingHorizontal="@dimen/card_titleLRPadding"
+            android:paddingVertical="@dimen/card_titleTBPadding"
             android:textSize="@dimen/card_titleSize"
-            android:textColor="@color/text" />
+            android:textColor="@color/card_titleText" />
 
         <TextView
             android:id="@+id/eventStartTitle"
@@ -48,7 +52,8 @@
 
 
             android:textSize="@dimen/card_textSize"
-            android:textColor="@color/text"
+            android:textColor="@color/card_text"
+            android:background="@color/masonGold"
             android:layout_width="@dimen/card_textWidth"
             android:layout_height="@dimen/card_textHeight"
             android:paddingEnd="@dimen/card_padding"
@@ -70,7 +75,8 @@
             android:layout_toEndOf="@+id/eventEndTitle"
 
             android:textSize="@dimen/card_textSize"
-            android:textColor="@color/text"
+            android:textColor="@color/card_text"
+            android:background="@color/masonGold"
             android:layout_width="@dimen/card_textWidth"
             android:layout_height="@dimen/card_textHeight"
             android:paddingEnd="@dimen/card_padding"
@@ -92,23 +98,25 @@
             android:layout_toEndOf="@+id/eventLocationTitle"
 
             android:textSize="@dimen/card_textSize"
-            android:textColor="@color/text"
+            android:textColor="@color/card_text"
+            android:background="@color/masonGold"
             android:layout_width="@dimen/card_textWidth"
             android:layout_height="@dimen/card_textHeight"
-            android:paddingEnd="@dimen/card_padding"
-            android:paddingStart="@dimen/card_padding"/>
+            android:paddingHorizontal="@dimen/card_padding"/>
 
         <ImageButton
             android:id="@+id/eventNavigation"
             android:layout_toEndOf="@+id/eventTitle"
             android:src="@drawable/ic_nav_black_24dp"
+
             android:contentDescription="@string/card_nav"
 
+            android:scaleType="fitCenter"
             android:layout_marginStart="@dimen/card_buttonMarginStart"
             android:layout_width="@dimen/card_buttonWidth"
             android:layout_height="@dimen/card_buttonHeight"
             android:background="@color/transparent" />
-@
+
         <ImageButton
             android:id="@+id/eventFavorite"
             android:layout_toEndOf="@+id/eventTitle"
@@ -116,6 +124,7 @@
             android:src="@drawable/ic_favorite_black_24dp"
             android:contentDescription="@string/card_fav"
 
+            android:scaleType="fitCenter"
             android:layout_marginStart="@dimen/card_buttonMarginStart"
             android:layout_width="@dimen/card_buttonWidth"
             android:layout_height="@dimen/card_buttonHeight"
@@ -123,12 +132,13 @@
 
         <ImageButton
             android:id="@+id/eventLink"
-            android:text="Link"
+            android:text="@string/card_link"
             android:layout_toEndOf="@+id/eventTitle"
             android:layout_below="@id/eventFavorite"
             android:src="@drawable/ic_link_black_24dp"
             android:contentDescription="@string/card_link"
 
+            android:scaleType="fitCenter"
             android:layout_marginStart="@dimen/card_buttonMarginStart"
             android:layout_width="@dimen/card_buttonWidth"
             android:layout_height="@dimen/card_buttonHeight"
