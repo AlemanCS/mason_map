@@ -121,7 +121,7 @@
             android:id="@+id/eventFavorite"
             android:layout_toEndOf="@+id/eventTitle"
             android:layout_below="@id/eventNavigation"
-            android:src="@drawable/ic_favorite_black_24dp"
+            android:src="@drawable/ic_unfavorite_black_24dp"
             android:contentDescription="@string/card_fav"
 
             android:scaleType="fitCenter"

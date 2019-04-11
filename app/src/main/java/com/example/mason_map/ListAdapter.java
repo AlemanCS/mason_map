@@ -76,6 +76,11 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 holder.nav = convertView.findViewById(R.id.eventNavigation);
                 holder.fav = convertView.findViewById(R.id.eventFavorite);
 
+                //If its Favrioted, change icon:
+                if(ScheduleActivity.isPresent(getItem(position))){
+                    holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                }
+
                 convertView.setTag(holder);
             }
             else{
@@ -102,7 +107,15 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on SAVE Button
-                    ScheduleActivity.populateListView(getItem(position));
+                    ImageButton button = (ImageButton) v;
+                    if(ScheduleActivity.populateListView(getItem(position))){
+                        button.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    }
+                    else{
+                        button.setImageResource(R.drawable.ic_unfavorite_black_24dp);
+                    }
+
+
                 }
             });
         }

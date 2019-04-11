@@ -51,7 +51,7 @@ public class ScheduleActivity extends Fragment {
     /*
         Add or remove an event to the Schedule...
      */
-    public static void populateListView(Event event){
+    public static boolean populateListView(Event event){
         if(events == null){
             events = new ArrayList<>();
         }
@@ -59,10 +59,23 @@ public class ScheduleActivity extends Fragment {
         if(events.contains(event)){
             events.remove(event);
             Log.d(TAG, "Removed event" + event.toString());
+            return false;
         }
         else {
             events.add(event);
             Log.d(TAG, "Added event" + event.toString());
+            return true;
         }
+    }
+    public static boolean isPresent(Event event){
+        if(events == null){
+            return false;
+        }
+        for(Event e : events){
+            if(e.getTitle().equals(event.getTitle())){
+                return true;
+            }
+        }
+        return false;
     }
 }

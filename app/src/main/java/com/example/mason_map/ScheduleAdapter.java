@@ -75,6 +75,9 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
                 holder.nav = convertView.findViewById(R.id.eventNavigation);
                 holder.fav = convertView.findViewById(R.id.eventFavorite);
 
+                //Change the Button to Fav Mode
+                holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+
                 convertView.setTag(holder);
             }
             else{
@@ -82,6 +85,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
             }
             this.lastPos = position;
 
+            //Set the text
             holder.title.setText(title);
             holder.start.setText(start);
             holder.end.setText(end);
