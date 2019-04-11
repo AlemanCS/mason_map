@@ -104,6 +104,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
                     //TODO: Add what happens when you click on SAVE Button
 
                     ScheduleActivity.populateListView(getItem(position));
+                    remove(getItem(position));
                 }
             });
         }

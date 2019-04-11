@@ -30,16 +30,21 @@ public class ScheduleActivity extends Fragment {
         if(events == null) {
             events = new ArrayList<>();
         }
-        this.generateEventList();
+
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        this.generateEventList();
+    }
     /*
       Generate the Event List
      */
     private void generateEventList(){
         ArrayList<Event> copy = (ArrayList<Event>) events.clone();
-        ListView listView = this.getView().findViewById(R.id.faveView);
         ScheduleAdapter customListAdapter = new ScheduleAdapter(this.getActivity(), R.layout.feed_event, copy);
+        ListView listView = this.getView().findViewById(R.id.faveView);
         listView.setAdapter(customListAdapter);
     }
 
