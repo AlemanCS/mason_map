@@ -3,6 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Header Information -->
+    <dimen name="header_margin">6dp</dimen>
+    <dimen name="header_textSize">24sp</dimen>
+    <dimen name="header_iconSize">40dp</dimen>
 
     <!-- Feed's Card Information -->
     <dimen name="cardHeight">120dp</dimen>

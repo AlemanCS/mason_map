@@ -2,6 +2,9 @@ package com.example.mason_map;
 
 import java.util.ArrayList;
 
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.NonNull;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class ScheduleActivity extends Fragment {
@@ -17,6 +21,8 @@ public class ScheduleActivity extends Fragment {
     private static String TAG = "Schedule Activity";
 
     private static ArrayList<Event> events;
+
+    private static Calendar calendar;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
@@ -30,13 +36,25 @@ public class ScheduleActivity extends Fragment {
         if(events == null) {
             events = new ArrayList<>();
         }
-
     }
 
     @Override
     public void onStart(){
         super.onStart();
+        calendar = new Calendar(this.getActivity());
         this.generateEventList();
+
+        this.getView().findViewById(R.id.export).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               // calendar.ExportEvents(events);
+                //TODO: Fix Calendar, it currently cannot identify the system calendar.
+            }
+        });
+        this.getView().findViewById(R.id.addEvent).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new MainActivity().navtoNewEvent();
+            }
+        });
     }
     /*
       Generate the Event List
