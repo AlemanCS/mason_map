@@ -40,6 +40,7 @@ import android.widget.SearchView;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,25 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
+
+
+
+        InputStream input = getResources().openRawResource(R.raw.buildings);
+        ReadCSV read = new ReadCSV();
+        ArrayList<com.example.mason_map.Location> data = new ArrayList<>();
+
+        try {
+             data = read.readFile(input);
+             input.close();
+        }
+        catch(Exception exception){
+            Log.e(TAG, exception.toString());
+        }
+
+        //Print this...
+        for(com.example.mason_map.Location location : data) {
+            Log.d(TAG, location.toString());
+        }
     }
 
     private void init(){
@@ -151,9 +171,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         MarkerOptions options = new MarkerOptions().position(Latlng).title(title);
 
         mMap.addMarker(options);
-
-
-
     }
 
     public void onPoiClick(PointOfInterest poi) {
@@ -223,7 +240,4 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
     }
-
-
-
 }

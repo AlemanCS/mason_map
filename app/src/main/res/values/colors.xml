@@ -9,4 +9,5 @@
     <color name="card_titleText">#FFF</color>
     <color name="card_text">#42517F</color>
     <color name="transparent">#00000000</color>
+    <color name="offwhite">#FFE</color>
 </resources>

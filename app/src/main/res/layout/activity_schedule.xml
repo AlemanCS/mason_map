@@ -2,12 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+
+    <!-- Header -->
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        ></include>
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/header_margin"
+        android:text="@string/title_schedule"
+        android:textColor="@color/offwhite"
+        android:textSize="@dimen/header_textSize"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp"/>
+
+    <!-- Export Button -->
+    <ImageButton
+        android:layout_width="@dimen/header_iconSize"
+        android:layout_height="@dimen/header_iconSize"
+        android:layout_margin="@dimen/header_margin"
+        android:id="@+id/export"
+
+        android:src="@drawable/ic_calendar_black_24dp"
+        android:contentDescription="Export"
+        android:scaleType="fitCenter"
+        android:background="@color/transparent"
+        android:elevation="8dp"/>
+
+    <!-- Add Event Button -->
+    <ImageButton
+        android:layout_width="@dimen/header_iconSize"
+        android:layout_height="@dimen/header_iconSize"
+        android:layout_margin="@dimen/header_margin"
+        android:id="@+id/addEvent"
+        android:layout_alignParentRight="true"
+
+        android:src="@drawable/ic_add_black_24dp"
+        android:contentDescription="Export"
+        android:scaleType="fitCenter"
+        android:background="@color/transparent"
+        android:elevation="8dp"/>
+
+    <!-- List View -->
     <ListView
         android:id="@+id/faveView"
         android:layout_width="399dp"
         android:layout_height="580dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp"/>
 
 </RelativeLayout>

@@ -5,7 +5,25 @@
     android:focusableInTouchMode="true"
     android:id="@+id/activityFeed">
 
+    <!-- Header -->
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        ></include>
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/header_margin"
+        android:text="@string/title_feed"
+        android:textColor="@color/offwhite"
+        android:textSize="@dimen/header_textSize"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp"/>
+
     <SearchView
+        android:layout_below="@id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/feedSearch"
@@ -15,11 +33,12 @@
         android:focusedByDefault="false"/>
 
     <ListView
+        android:layout_below="@id/tool_bar"
         android:id="@+id/listView"
         android:layout_width="399dp"
         android:layout_height="580dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="8dp" />
 
 </RelativeLayout>

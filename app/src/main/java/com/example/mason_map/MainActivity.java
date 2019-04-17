@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+    public void navtoNewEvent(){
+        Fragment selectedFrag = new MapsActivity();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                selectedFrag).commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
