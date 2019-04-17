@@ -22,6 +22,9 @@ public class ReadCSV {
             //Get the data per comma...
             String[] row = data.split(",");
 
+
+            Log.d("Length" ,"len = "+ row.length);
+
             Location location = new Location();
 
             location.setCode(row[0]);
@@ -32,11 +35,19 @@ public class ReadCSV {
             location.setOldName(row[3]);
 
             //TODO: ADD LAT LONG THING HERE
+            if(row[4] != " " && row[5] != " ") {
+                double lat = Double.parseDouble(row[4]);
+                double lon = Double.parseDouble(row[5]);
+
+                Log.d("Lat Long", "lat : " + lat + " long : " + lon);
+            }
+
 
             locations.add(location);
         }
 
         input.close();
+        reader.close();
 
         return locations;
     }
