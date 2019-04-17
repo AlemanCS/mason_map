@@ -52,7 +52,9 @@ public class ScheduleActivity extends Fragment {
         });
         this.getView().findViewById(R.id.addEvent).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new MainActivity().navtoNewEvent();
+                Fragment newAct = new NewEventActivity();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newAct).commit();
+
             }
         });
     }
