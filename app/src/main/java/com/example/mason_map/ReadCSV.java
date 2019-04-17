@@ -10,17 +10,19 @@ import java.util.ArrayList;
 
 
 public class ReadCSV {
-    ArrayList<String> readFile(InputStream input) throws IOException {
-        ArrayList<String> locations = new ArrayList<>();
+    ArrayList<String[]> readFile(InputStream input) throws IOException {
+        ArrayList<String[]> locations = new ArrayList<>();
         BufferedReader reader;
 
         reader = new BufferedReader(new InputStreamReader(input));
 
         String data;
         while((data = reader.readLine()) != null){
-            Log.d("Eh", data);
-            locations.add(data);
+            String[] row = data.split(",");
+            locations.add(row);
         }
+
+        input.close();
 
         return locations;
     }
