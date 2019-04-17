@@ -81,13 +81,19 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         InputStream input = getResources().openRawResource(R.raw.buildings);
         ReadCSV read = new ReadCSV();
-        ArrayList<String[]> data;
+        ArrayList<com.example.mason_map.Location> data = new ArrayList<>();
+
         try {
              data = read.readFile(input);
              input.close();
         }
         catch(Exception exception){
             Log.e(TAG, exception.toString());
+        }
+
+        //Print this...
+        for(com.example.mason_map.Location location : data) {
+            Log.d(TAG, location.toString());
         }
     }
 
