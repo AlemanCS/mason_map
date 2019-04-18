@@ -34,7 +34,8 @@ public class ReadCSV {
 
             Location location = new Location();
 
-            Log.d("Row",row[0]);
+
+            Log.d("Building",row[0]);
 
             location.setCode(row[0]);
             location.setName(row[1]);
@@ -44,7 +45,7 @@ public class ReadCSV {
             //location.setOldName(row[3]);
 
             //TODO: ADD LAT LONG THING HERE
-            if(row[4].equals("") && row[5].equals("")) {
+            if(row[4]!="" && row[5]!="") {
                 double lat = Double.parseDouble(row[4]);
                 double lon = Double.parseDouble(row[5]);
 
