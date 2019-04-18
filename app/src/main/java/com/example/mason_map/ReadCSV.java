@@ -10,7 +10,14 @@ import java.util.ArrayList;
 
 
 public class ReadCSV {
-    ArrayList<Location> readFile(InputStream input) throws IOException {
+
+
+
+    public ReadCSV(){
+
+
+    }
+    public ArrayList<Location> readFile(InputStream input) throws IOException {
         ArrayList<Location> locations = new ArrayList<>();
         BufferedReader reader;
 
@@ -31,11 +38,11 @@ public class ReadCSV {
             location.setName(row[1]);
 
             //Likely Blank Lines... That's Okay..
-            location.setOldCode(row[2]);
-            location.setOldName(row[3]);
+            //.setOldCode(row[2]);
+            //location.setOldName(row[3]);
 
             //TODO: ADD LAT LONG THING HERE
-            if(row[4] != " " && row[5] != " ") {
+            if(row[4].equals("") && row[5].equals("")) {
                 double lat = Double.parseDouble(row[4]);
                 double lon = Double.parseDouble(row[5]);
 

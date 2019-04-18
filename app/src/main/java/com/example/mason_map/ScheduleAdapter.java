@@ -100,6 +100,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
             holder.nav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on NAV Button
+
                 }
             });
             holder.fav.setOnClickListener(new View.OnClickListener() {

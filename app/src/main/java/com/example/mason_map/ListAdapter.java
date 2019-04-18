@@ -1,5 +1,6 @@
 package com.example.mason_map;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -102,6 +103,15 @@ public class ListAdapter extends ArrayAdapter<Event>{
             holder.nav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //TODO: Add what happens when you click on NAV Button
+                    ReadCSV test = new ReadCSV();
+                    try {
+                        test.readFile(getContext().getResources().openRawResource(R.raw.buildings));
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+
+
+
                 }
             });
             holder.fav.setOnClickListener(new View.OnClickListener() {
