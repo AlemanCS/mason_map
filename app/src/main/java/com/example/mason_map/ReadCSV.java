@@ -11,14 +11,15 @@ import java.util.ArrayList;
 
 public class ReadCSV {
 
+    private ArrayList<Location> locations;
+
 
 
     public ReadCSV(){
 
-
     }
     public ArrayList<Location> readFile(InputStream input) throws IOException {
-        ArrayList<Location> locations = new ArrayList<>();
+        locations = new ArrayList<>();
         BufferedReader reader;
 
         reader = new BufferedReader(new InputStreamReader(input));
@@ -59,6 +60,10 @@ public class ReadCSV {
         input.close();
         reader.close();
 
+        return locations;
+    }
+
+    public ArrayList<Location> getLocations() {
         return locations;
     }
 }
