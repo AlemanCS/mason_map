@@ -104,7 +104,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
             public boolean onQueryTextSubmit(String input) {
                 geoLocate(input);
                 return false;
-            }
+          A  }
 
             @Override
             public boolean onQueryTextChange(String input) {

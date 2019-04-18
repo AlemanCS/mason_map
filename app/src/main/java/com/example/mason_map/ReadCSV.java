@@ -2,6 +2,8 @@ package com.example.mason_map;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,6 +51,8 @@ public class ReadCSV {
             if(row[4]!="" && row[5]!="") {
                 double lat = Double.parseDouble(row[4]);
                 double lon = Double.parseDouble(row[5]);
+
+                location.setLatlng(new LatLng(lat,lon));
 
                 Log.d("Lat Long", "lat : " + lat + " long : " + lon);
             }
