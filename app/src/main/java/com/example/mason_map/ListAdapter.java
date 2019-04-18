@@ -24,6 +24,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
     private int resource;
     private int lastPos;
     private ArrayList<Event> events;
+    private ReadCSV csvAccess = new ReadCSV();
 
     private static class EventHolder{
         TextView title;
@@ -41,6 +42,8 @@ public class ListAdapter extends ArrayAdapter<Event>{
         this.context = context;
         this.lastPos = 0;
         this.events = new ArrayList<>();
+
+        this.csvAccess = null;
     }
 
     @NonNull
@@ -102,17 +105,17 @@ public class ListAdapter extends ArrayAdapter<Event>{
             });
             holder.nav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //TODO: Add what happens when you click on NAV Button
-                    ReadCSV test = new ReadCSV();
                     try {
-                        test.readFile(getContext().getResources().openRawResource(R.raw.buildings));
-                        Log.d("It's a test..", test.getLatLng((Event)getItem(position)).toString());
+                        if(csvAccess == null){
+                            csvAccess = new ReadCSV();
+                            csvAccess.readFile(getContext().getResources().openRawResource(R.raw.buildings));
+                            Log.d(TAG, "Loaded Location Data.");
+                        }
+
+                        Log.d(TAG, csvAccess.getLatLng((Event)getItem(position)).toString());
                     }catch (IOException e){
                         e.printStackTrace();
                     }
-
-
-
                 }
             });
             holder.fav.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +128,6 @@ public class ListAdapter extends ArrayAdapter<Event>{
                     else{
                         button.setImageResource(R.drawable.ic_unfavorite_black_24dp);
                     }
-
-
                 }
             });
         }
@@ -135,7 +136,6 @@ public class ListAdapter extends ArrayAdapter<Event>{
         }
 
         return convertView;
-
     }
 
     public void filtering(String input){
