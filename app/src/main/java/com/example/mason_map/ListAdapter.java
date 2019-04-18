@@ -106,6 +106,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
                     ReadCSV test = new ReadCSV();
                     try {
                         test.readFile(getContext().getResources().openRawResource(R.raw.buildings));
+                        Log.d("It's a test..", test.getLatLng((Event)getItem(position)).toString());
                     }catch (IOException e){
                         e.printStackTrace();
                     }

@@ -15,11 +15,10 @@ public class ReadCSV {
 
     private ArrayList<Location> locations;
 
-
-
     public ReadCSV(){
-
+        this.locations = new ArrayList<>();
     }
+
     public ArrayList<Location> readFile(InputStream input) throws IOException {
         locations = new ArrayList<>();
         BufferedReader reader;
@@ -68,6 +67,47 @@ public class ReadCSV {
     }
 
     public ArrayList<Location> getLocations() {
-        return locations;
+        return this.locations;
+    }
+
+    public LatLng getLatLng(Event event){
+        Location location = null;
+        LatLng result;
+
+        //First check to see if it matches the building name::
+        for(Location local : this.locations){
+            if(event.getLocation().contains(local.getName()) ||
+                    event.getLocation().contains(local.getCode())){
+
+                location = local;
+                break;
+            }
+        }
+
+        // Was not found, lets check the old Name / Code
+        if(location == null){
+            for(Location local : this.locations) {
+                if (event.getLocation().contains(local.getOldName()) ||
+                        event.getLocation().contains(local.getOldCode())) {
+
+                    location = local;
+                    break;
+                }
+            }
+        }
+
+        // Was still not found, lets set it to GMU itself....
+        if(location == null){
+             result = new LatLng(38.8315, -77.3115);
+        }
+        else{
+            result = location.getLatlng();
+
+            if(result == null){
+                result = new LatLng(38.8315, -77.3115);
+            }
+        }
+
+        return result;
     }
 }
