@@ -34,6 +34,8 @@ public class ReadCSV {
 
             Location location = new Location();
 
+            Log.d("Row",row[0]);
+
             location.setCode(row[0]);
             location.setName(row[1]);
 
