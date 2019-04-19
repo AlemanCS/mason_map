@@ -110,6 +110,9 @@ public class Event {
         this.start = this.parseTime(start);
     }
 
+    public void setRawStart(String start) { this.start = start; }
+    public void setRawEnd(String end) { this.end = end; }
+
     public String getEnd() {
         return end;
     }

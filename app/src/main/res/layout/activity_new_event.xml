@@ -47,7 +47,7 @@
         android:layout_marginVertical="@dimen/new_margin"
 
         android:ems="10"
-        android:inputType="date"
+        android:inputType="text"
         android:hint="@string/new_Date" />
 
     <EditText
@@ -77,25 +77,12 @@
         android:hint="@string/new_End" />
 
     <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText4"
-        android:layout_marginVertical="@dimen/new_margin"
-
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/new_Description"/>
-
-    <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText5"
+        android:layout_below="@id/editText4"
         android:layout_marginVertical="@dimen/new_margin"
 
         android:ems="10"
