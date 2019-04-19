@@ -113,6 +113,9 @@ public class ListAdapter extends ArrayAdapter<Event>{
                         }
 
                         Log.d(TAG, csvAccess.getLatLng((Event)getItem(position)).toString());
+
+                        
+
                     }catch (IOException e){
                         e.printStackTrace();
                     }
