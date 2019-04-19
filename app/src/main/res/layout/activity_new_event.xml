@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newEvent"
@@ -7,163 +7,123 @@
     android:layout_height="match_parent"
     tools:context=".NewEventActivity">
 
+    <!-- Header -->
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        ></include>
+
+    <!-- Title -->
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="103dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="206dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="45dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="250dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="325dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="400dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="640dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="175dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="475dp" />
+        android:layout_marginTop="@dimen/header_margin"
+        android:text="@string/title_new"
+        android:textColor="@color/offwhite"
+        android:textSize="@dimen/header_textSize"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp"/>
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tool_bar"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Title"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        android:inputType="text"
+        android:hint="@string/new_title"/>
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
         android:inputType="date"
-        android:text="Date"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        android:hint="@string/new_Date" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText2"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
         android:inputType="time"
-        android:text="Start Time"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        android:hint="@string/new_Start" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText3"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
         android:inputType="time"
-        android:text="End Time"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
-
-    <Button
-        android:id="@+id/createEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Create Event"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        android:hint="@string/new_End" />
 
     <EditText
         android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText4"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Description"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        android:inputType="text"
+        android:hint="@string/new_Description"/>
 
     <EditText
         android:id="@+id/editText6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText5"
+        android:layout_marginVertical="@dimen/new_margin"
+
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Location"
-        app:layout_constraintEnd_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        android:inputType="text"
+        android:hint="@string/new_Location" />
 
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText6"
+        android:layout_marginVertical="@dimen/new_margin"
+        android:ems="10"
 
-</android.support.constraint.ConstraintLayout>
+        android:inputType="text"
+        android:hint="@string/new_Link" />
+
+    <Button
+        android:id="@+id/createEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText7"
+        android:layout_marginVertical="@dimen/new_margin"
+
+        android:text="@string/new_Submit" />
+
+</RelativeLayout>
