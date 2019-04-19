@@ -47,8 +47,8 @@ public class NewEventActivity extends Fragment {
 
                 try {
                     event.setTitle(title.getText().toString());
-                    event.setRawStart(date.getText().toString() + startTime.getText().toString());
-                    event.setRawEnd(date.getText().toString() + startTime.getText().toString());
+                    event.setRawStart(date.getText().toString() + ", "+ startTime.getText().toString());
+                    event.setRawEnd(date.getText().toString() + ", " + startTime.getText().toString());
                     event.setLink(link.getText().toString());
                     event.setLocation(location.getText().toString());
 
