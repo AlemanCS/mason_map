@@ -119,7 +119,7 @@ public class FeedActivity extends Fragment {
      */
     private void generateEventList() {
         ListView listView = this.getView().findViewById(R.id.listView);
-        ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events);
+        ListAdapter customListAdapter = new ListAdapter(this.getActivity(), R.layout.feed_event, this.events, getActivity().getSupportFragmentManager(),new MapsActivity());
         listView.setAdapter(customListAdapter);
         this.search(customListAdapter);
     }

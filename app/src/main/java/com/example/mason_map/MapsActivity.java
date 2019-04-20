@@ -60,12 +60,19 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-
     private boolean mPermissionDenied = false;
+    private boolean ready = false;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-         return layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+         View view = layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        Log.d("TAG","Map is Ready");
+
+        return view;
     }
 
     @Override
@@ -82,6 +89,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         ReadCSV read = new ReadCSV();
         try {
              read.readFile(getResources().openRawResource(R.raw.buildings));
+
         }
         catch(Exception exception){
             Log.e(TAG, exception.toString());
@@ -117,7 +125,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG,"Map onReady is Ready");
         mMap = googleMap;
+        this.ready = true;
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
@@ -155,7 +165,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     }
 
-    private void moveCamera(LatLng Latlng,float zoom, String title){
+    public void moveCamera(LatLng Latlng,float zoom, String title){
         //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
 
@@ -230,5 +240,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
+    }
+
+    public boolean readyMap(){
+        return this.ready;
+
     }
 }

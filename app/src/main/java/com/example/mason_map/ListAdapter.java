@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,10 @@ import android.net.Uri;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class ListAdapter extends ArrayAdapter<Event>{
 
@@ -25,6 +31,8 @@ public class ListAdapter extends ArrayAdapter<Event>{
     private int lastPos;
     private ArrayList<Event> events;
     private ReadCSV csvAccess = new ReadCSV();
+    private FragmentManager f_manager;
+    private MapsActivity map;
 
     private static class EventHolder{
         TextView title;
@@ -35,13 +43,15 @@ public class ListAdapter extends ArrayAdapter<Event>{
         ImageButton nav;
         ImageButton fav;
     }
-    public ListAdapter(Context context, int resource, ArrayList<Event> objects){
+    public ListAdapter(Context context, int resource, ArrayList<Event> objects, FragmentManager f_manager, MapsActivity map){
         super(context, resource, objects);
 
         this.resource = resource;
+        this.f_manager = f_manager;
         this.context = context;
         this.lastPos = 0;
         this.events = new ArrayList<>();
+        this.map = map;
 
         this.csvAccess = null;
     }
@@ -110,6 +120,21 @@ public class ListAdapter extends ArrayAdapter<Event>{
                             csvAccess = new ReadCSV();
                             csvAccess.readFile(getContext().getResources().openRawResource(R.raw.buildings));
                             Log.d(TAG, "Loaded Location Data.");
+                            LatLng nav = csvAccess.getLatLng(getItem(position));
+
+                            //map.moveCamera(nav,15f,"Place");
+
+
+
+                            f_manager.beginTransaction().replace(R.id.fragment_container,
+                                    map).commitNow();
+
+                            //map.moveCamera(nav,15f,"Place");
+
+                            if(map.readyMap()){
+                                map.moveCamera(nav,15f,"Place");
+                            }
+
                         }
 
                         Log.d(TAG, csvAccess.getLatLng((Event)getItem(position)).toString());
