@@ -130,10 +130,12 @@ public class ListAdapter extends ArrayAdapter<Event>{
                                     map).commitNow();
 
                             //map.moveCamera(nav,15f,"Place");
+                            map.setLocation(nav, csvAccess.getTitle(nav));
 
-                            if(map.readyMap()){
-                                map.moveCamera(nav,15f,"Place");
-                            }
+                            //if(map.readyMap()){
+
+                               // map.moveCamera(nav,15f,"Place");
+                            //}
 
                         }
 

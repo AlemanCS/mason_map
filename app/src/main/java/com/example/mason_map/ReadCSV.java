@@ -61,6 +61,17 @@ public class ReadCSV {
         return this.locations;
     }
 
+    public String getTitle(LatLng search){
+
+        for(Location location : this.locations){
+            if(location.getLatlng().equals(search)){
+                return location.getName();
+            }
+        }
+        //Cannot find name.
+        return "Event";
+    }
+
     public LatLng getLatLng(Event event){
         Location location = null;
         LatLng result;

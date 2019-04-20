@@ -63,6 +63,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private boolean mPermissionDenied = false;
     private boolean ready = false;
 
+    private LatLng local;
+    private String localTitle;
+
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
          View view = layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
@@ -84,6 +87,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
+
+        this.local = new LatLng(38.8315, -77.3115);
+        this.localTitle = "George Mason University";
 
 
         ReadCSV read = new ReadCSV();
@@ -138,6 +144,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.setOnPoiClickListener(this);
 
         init();
+
+        mMap.addMarker(new MarkerOptions().position(this.local).title(this.localTitle));
         /* Add a marker to George Mason and move the camera
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
@@ -244,6 +252,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     public boolean readyMap(){
         return this.ready;
+    }
 
+    public void setLocation(LatLng local, String localTitle){
+        this.local = local;
+        this.localTitle = localTitle;
     }
 }
+
