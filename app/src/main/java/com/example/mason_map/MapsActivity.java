@@ -250,10 +250,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
                 .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
     }
 
+    //Checks to see if the map is ready to be used.
     public boolean readyMap(){
         return this.ready;
     }
 
+    // Sets the location and title, for use within nav to button.
     public void setLocation(LatLng local, String localTitle){
         Log.d(TAG,"New Location is Set to " + localTitle);
         this.local = local;

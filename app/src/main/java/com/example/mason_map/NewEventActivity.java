@@ -38,6 +38,7 @@ public class NewEventActivity extends Fragment {
 
                 Event event = new Event();
 
+                //Fetch the elements from the GUI
                 title = (EditText)getView().findViewById(R.id.editText);
                 date = (EditText)getView().findViewById(R.id.editText2);
                 startTime = (EditText)getView().findViewById(R.id.editText3);
@@ -46,14 +47,17 @@ public class NewEventActivity extends Fragment {
                 link = (EditText)getView().findViewById(R.id.editText7);
 
                 try {
+                    //Sets each element within the GUI for this Event
                     event.setTitle(title.getText().toString());
                     event.setRawStart(date.getText().toString() + ", "+ startTime.getText().toString());
                     event.setRawEnd(date.getText().toString() + ", " + startTime.getText().toString());
                     event.setLink(link.getText().toString());
                     event.setLocation(location.getText().toString());
 
+                    //Populate the schedule with this new event:
                     ScheduleActivity.populateListView(event);
 
+                    //Goto the schedule:
                     Fragment newAct = new ScheduleActivity();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newAct).commit();
                 }
@@ -62,7 +66,6 @@ public class NewEventActivity extends Fragment {
                 }
             }
         });
-
     }
 
     @Override

@@ -30,10 +30,14 @@ public class ListAdapter extends ArrayAdapter<Event>{
     private int resource;
     private int lastPos;
     private ArrayList<Event> events;
-    private ReadCSV csvAccess = new ReadCSV();
+    private ReadCSV csvAccess;
     private FragmentManager f_manager;
     private MapsActivity map;
 
+    /*
+      Used to hold the Views and Buttons used within each Event.
+      This is the interface between the User and the program.
+     */
     private static class EventHolder{
         TextView title;
         TextView start;
@@ -43,6 +47,10 @@ public class ListAdapter extends ArrayAdapter<Event>{
         ImageButton nav;
         ImageButton fav;
     }
+
+    /*
+      Creates a new List Adapter with the provided information.
+     */
     public ListAdapter(Context context, int resource, ArrayList<Event> objects, FragmentManager f_manager, MapsActivity map){
         super(context, resource, objects);
 
@@ -79,6 +87,7 @@ public class ListAdapter extends ArrayAdapter<Event>{
                 LayoutInflater inflater = LayoutInflater.from(this.context);
                 convertView = inflater.inflate(this.resource, parent, false);
 
+                //Used to hold each Event:
                 holder = new EventHolder();
 
                 //Get the required Elements:
@@ -95,17 +104,22 @@ public class ListAdapter extends ArrayAdapter<Event>{
                     holder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
                 }
 
+                //Push Event to the View:
                 convertView.setTag(holder);
             }
             else{
                 holder = (EventHolder) convertView.getTag();
             }
+            //Used in case we need to inject a event. Likely not to be used.
             this.lastPos = position;
 
+            //Sets the text for each Event:
             holder.title.setText(title);
             holder.start.setText(start);
             holder.end.setText(end);
             holder.location.setText(location);
+
+            //Sets the actions to be commited on Click of the Link Button.
             holder.link.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //Navigate to web page
@@ -113,52 +127,49 @@ public class ListAdapter extends ArrayAdapter<Event>{
                     context.startActivity(browser);
                 }
             });
+
+            //Sets the actions to be commited on CLick of the Navigation Button.
             holder.nav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     try {
-                        if(csvAccess == null){
+                        if(csvAccess == null) {
+
+                            //This accesses the data within the database.
                             csvAccess = new ReadCSV();
+
+                            //This reads the data file
                             csvAccess.readFile(getContext().getResources().openRawResource(R.raw.buildings));
+
+                            //Gets the location of the item.
                             Log.d(TAG, "Loaded Location Data.");
                             LatLng nav = csvAccess.getLatLng(getItem(position));
 
-                            //map.newInstance();
-
-                            //map.moveCamera(nav,15f,"Place");
-
-
-
+                            //Switches Views:
                             f_manager.beginTransaction().replace(R.id.fragment_container,
                                     map).commit();
 
-                            //map.moveCamera(nav,15f,"Place");
-
-                            Log.d(TAG,"Title of Location is " + csvAccess.getTitle(nav));
+                            //Sets the location required for navigation:
+                            Log.d(TAG, "Title of Location is " + csvAccess.getTitle(nav));
                             map.setLocation(nav, csvAccess.getTitle(nav));
-
-                            //if(map.readyMap()){
-
-                               // map.moveCamera(nav,15f,"Place");
-                            //}
-
                         }
-
                         Log.d(TAG, csvAccess.getLatLng((Event)getItem(position)).toString());
-
-                        
 
                     }catch (IOException e){
                         e.printStackTrace();
                     }
                 }
             });
+
+            //Sets what happens to the save button:
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //TODO: Add what happens when you click on SAVE Button
                     ImageButton button = (ImageButton) v;
+
+                    //Adds the item to the schedule, sets icon.
                     if(ScheduleActivity.populateListView(getItem(position))){
                         button.setImageResource(R.drawable.ic_favorite_black_24dp);
                     }
+                    //Removes the item from the schedule, resets icon.
                     else{
                         button.setImageResource(R.drawable.ic_unfavorite_black_24dp);
                     }

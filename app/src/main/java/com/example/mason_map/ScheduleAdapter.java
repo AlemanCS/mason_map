@@ -23,6 +23,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
     private int lastPos;
     private ArrayList<Event> events;
 
+    // Interface that allows access to each element within User GUI
     private static class EventHolder{
         TextView title;
         TextView start;
@@ -32,6 +33,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
         ImageButton nav;
         ImageButton fav;
     }
+
     public ScheduleAdapter(Context context, int resource, ArrayList<Event> objects){
         super(context, resource, objects);
 
@@ -105,8 +107,8 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
             });
             holder.fav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //TODO: Add what happens when you click on SAVE Button
 
+                    //Removes from schedule
                     ScheduleActivity.populateListView(getItem(position));
                     remove(getItem(position));
                 }

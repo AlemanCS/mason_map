@@ -87,6 +87,8 @@ public class ScheduleActivity extends Fragment {
             return true;
         }
     }
+
+    //Checks to see if there is an event within the schedule, based on title.
     public static boolean isPresent(Event event){
         if(events == null){
             return false;
