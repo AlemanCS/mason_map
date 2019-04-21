@@ -69,11 +69,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
          View view = layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        Log.d("TAG","Map is Ready");
+         Log.d("TAG","Map is created");
 
         return view;
     }
@@ -87,9 +83,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
+        if(this.localTitle == null){
+            this.local = new LatLng(38.8315, -77.3115);
+            this.localTitle = "George Mason University";
 
-        this.local = new LatLng(38.8315, -77.3115);
-        this.localTitle = "George Mason University";
+        }
 
 
         ReadCSV read = new ReadCSV();
@@ -131,9 +129,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG,"Map onReady is Ready");
+        Log.d(TAG,"Map is Ready");
         mMap = googleMap;
         this.ready = true;
+
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
@@ -146,6 +145,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         init();
 
         mMap.addMarker(new MarkerOptions().position(this.local).title(this.localTitle));
+        Log.d(TAG,"Marker set to " + localTitle);
         /* Add a marker to George Mason and move the camera
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
@@ -255,6 +255,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     }
 
     public void setLocation(LatLng local, String localTitle){
+        Log.d(TAG,"New Location is Set to " + localTitle);
         this.local = local;
         this.localTitle = localTitle;
     }

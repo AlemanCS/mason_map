@@ -122,14 +122,18 @@ public class ListAdapter extends ArrayAdapter<Event>{
                             Log.d(TAG, "Loaded Location Data.");
                             LatLng nav = csvAccess.getLatLng(getItem(position));
 
+                            //map.newInstance();
+
                             //map.moveCamera(nav,15f,"Place");
 
 
 
                             f_manager.beginTransaction().replace(R.id.fragment_container,
-                                    map).commitNow();
+                                    map).commit();
 
                             //map.moveCamera(nav,15f,"Place");
+
+                            Log.d(TAG,"Title of Location is " + csvAccess.getTitle(nav));
                             map.setLocation(nav, csvAccess.getTitle(nav));
 
                             //if(map.readyMap()){
