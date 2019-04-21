@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScheduleAdapter extends ArrayAdapter<Event>{
@@ -22,6 +26,9 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
     private int resource;
     private int lastPos;
     private ArrayList<Event> events;
+    private ReadCSV csvAccess;
+    private FragmentManager f_manager;
+    private MapsActivity map;
 
     // Interface that allows access to each element within User GUI
     private static class EventHolder{
@@ -34,13 +41,16 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
         ImageButton fav;
     }
 
-    public ScheduleAdapter(Context context, int resource, ArrayList<Event> objects){
+    public ScheduleAdapter(Context context, int resource, ArrayList<Event> objects, FragmentManager f_manager, MapsActivity map){
         super(context, resource, objects);
 
         this.resource = resource;
         this.context = context;
         this.lastPos = 0;
         this.events = new ArrayList<>();
+        this.map = map;
+        this.f_manager = f_manager;
+        this.csvAccess = null;
     }
 
     @NonNull
@@ -101,8 +111,32 @@ public class ScheduleAdapter extends ArrayAdapter<Event>{
             });
             holder.nav.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //TODO: Add what happens when you click on NAV Button
+                    try {
+                        if(csvAccess == null) {
 
+                            //This accesses the data within the database.
+                            csvAccess = new ReadCSV();
+
+                            //This reads the data file
+                            csvAccess.readFile(getContext().getResources().openRawResource(R.raw.buildings));
+
+                            //Gets the location of the item.
+                            Log.d(TAG, "Loaded Location Data.");
+                            LatLng nav = csvAccess.getLatLng(getItem(position));
+
+                            //Switches Views:
+                            f_manager.beginTransaction().replace(R.id.fragment_container,
+                                    map).commit();
+
+                            //Sets the location required for navigation:
+                            Log.d(TAG, "Title of Location is " + csvAccess.getTitle(nav));
+                            map.setLocation(nav, csvAccess.getTitle(nav));
+                        }
+                        Log.d(TAG, csvAccess.getLatLng((Event)getItem(position)).toString());
+
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 }
             });
             holder.fav.setOnClickListener(new View.OnClickListener() {

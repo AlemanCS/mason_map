@@ -63,7 +63,7 @@ public class ScheduleActivity extends Fragment {
      */
     private void generateEventList(){
         ArrayList<Event> copy = (ArrayList<Event>) events.clone();
-        ScheduleAdapter customListAdapter = new ScheduleAdapter(this.getActivity(), R.layout.feed_event, copy);
+        ScheduleAdapter customListAdapter = new ScheduleAdapter(this.getActivity(), R.layout.feed_event, copy, getActivity().getSupportFragmentManager(),new MapsActivity());
         ListView listView = this.getView().findViewById(R.id.faveView);
         listView.setAdapter(customListAdapter);
     }

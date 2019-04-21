@@ -61,7 +61,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private boolean mPermissionDenied = false;
-    private boolean ready = false;
 
     private LatLng local;
     private String localTitle;
@@ -131,8 +130,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG,"Map is Ready");
         mMap = googleMap;
-        this.ready = true;
-
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
@@ -143,16 +140,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.setOnPoiClickListener(this);
 
         init();
-        //When the User clicks the Maps Tab is shouldn't place a marker
+        //When the User clicks the Maps Tab it shouldn't place a marker
         if(localTitle != "George Mason University"){
             moveCamera(local,DEFAULT_ZOOM,localTitle);
             Log.d(TAG,"Marker set to " + localTitle);
         }
-        /* Add a marker to George Mason and move the camera
-        LatLng georgeMason = new LatLng(38.8315, -77.3115);
-        mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(georgeMason));
-        */
     }
 
     private void geoLocate(String input){
@@ -250,11 +242,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
-    }
-
-    //Checks to see if the map is ready to be used.
-    public boolean readyMap(){
-        return this.ready;
     }
 
     // Sets the location and title, for use within nav to button.
