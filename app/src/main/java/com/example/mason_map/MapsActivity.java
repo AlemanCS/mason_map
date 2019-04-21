@@ -143,9 +143,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.setOnPoiClickListener(this);
 
         init();
-
-        mMap.addMarker(new MarkerOptions().position(this.local).title(this.localTitle));
-        Log.d(TAG,"Marker set to " + localTitle);
+        //When the User clicks the Maps Tab is shouldn't place a marker
+        if(localTitle != "George Mason University"){
+            moveCamera(local,DEFAULT_ZOOM,localTitle);
+            Log.d(TAG,"Marker set to " + localTitle);
+        }
         /* Add a marker to George Mason and move the camera
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
         mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
