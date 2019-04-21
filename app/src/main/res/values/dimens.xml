@@ -31,4 +31,10 @@
     <dimen name="card_buttonMarginStart">10dp</dimen>
     <!-- End Feed's Card Information -->
 
+    <!-- New Activity Stuff -->
+
+    <dimen name="new_margin">6dp</dimen>
+
+    <!-- End New Activity Stuff -->
+
 </resources>

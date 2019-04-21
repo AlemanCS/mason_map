@@ -60,12 +60,17 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-
     private boolean mPermissionDenied = false;
+
+    private LatLng local;
+    private String localTitle;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
-         return layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+         View view = layoutInflater.inflate(R.layout.activity_map,viewGroup,false);
+         Log.d("TAG","Map is created");
+
+        return view;
     }
 
     @Override
@@ -77,23 +82,20 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
+        if(this.localTitle == null){
+            this.local = new LatLng(38.8315, -77.3115);
+            this.localTitle = "George Mason University";
+
+        }
 
 
-        InputStream input = getResources().openRawResource(R.raw.buildings);
         ReadCSV read = new ReadCSV();
-        ArrayList<com.example.mason_map.Location> data = new ArrayList<>();
-
         try {
-             data = read.readFile(input);
-             input.close();
+             read.readFile(getResources().openRawResource(R.raw.buildings));
+
         }
         catch(Exception exception){
             Log.e(TAG, exception.toString());
-        }
-
-        //Print this...
-        for(com.example.mason_map.Location location : data) {
-            Log.d(TAG, location.toString());
         }
     }
 
@@ -126,6 +128,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG,"Map is Ready");
         mMap = googleMap;
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
@@ -137,11 +140,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.setOnPoiClickListener(this);
 
         init();
-        /* Add a marker to George Mason and move the camera
-        LatLng georgeMason = new LatLng(38.8315, -77.3115);
-        mMap.addMarker(new MarkerOptions().position(georgeMason).title("Best School ever"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(georgeMason));
-        */
+        //When the User clicks the Maps Tab it shouldn't place a marker
+        if(localTitle != "George Mason University"){
+            moveCamera(local,DEFAULT_ZOOM,localTitle);
+            Log.d(TAG,"Marker set to " + localTitle);
+        }
     }
 
     private void geoLocate(String input){
@@ -164,7 +167,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     }
 
-    private void moveCamera(LatLng Latlng,float zoom, String title){
+    public void moveCamera(LatLng Latlng,float zoom, String title){
         //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
 
@@ -240,4 +243,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getActivity().getSupportFragmentManager(), "dialog");
     }
+
+    // Sets the location and title, for use within nav to button.
+    public void setLocation(LatLng local, String localTitle){
+        Log.d(TAG,"New Location is Set to " + localTitle);
+        this.local = local;
+        this.localTitle = localTitle;
+    }
 }
+

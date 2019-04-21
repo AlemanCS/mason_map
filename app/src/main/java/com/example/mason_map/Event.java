@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class Event {
+    //All of the things a event is composed of:
     private String title;
     private String link;
     private String description;
@@ -109,6 +110,9 @@ public class Event {
     public void setStart(String start) {
         this.start = this.parseTime(start);
     }
+
+    public void setRawStart(String start) { this.start = start; }
+    public void setRawEnd(String end) { this.end = end; }
 
     public String getEnd() {
         return end;

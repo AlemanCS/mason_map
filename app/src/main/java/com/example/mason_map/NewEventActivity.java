@@ -9,43 +9,63 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class NewEventActivity extends Fragment {
 
     Button mButton;
+
     EditText title;
     EditText date;
     EditText startTime;
     EditText endTime;
-    EditText description;
     EditText location;
-    Event newEvent;
+    EditText link;
 
     public View onCreateView(@NonNull LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
        return layoutInflater.inflate(R.layout.activity_new_event,viewGroup,false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        mButton = (Button)view.findViewById(R.id.createEvent);
+    public void onStart(){
+        super.onStart();
+        mButton = (Button)getView().findViewById(R.id.createEvent);
 
         mButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
-                title = (EditText)view.findViewById(R.id.editText);
-                date = (EditText)view.findViewById(R.id.editText2);
-                startTime = (EditText)view.findViewById(R.id.editText3);
-                endTime = (EditText)view.findViewById(R.id.editText4);
-                description = (EditText)view.findViewById(R.id.editText5);
-                location = (EditText)view.findViewById(R.id.editText6);
-                ArrayList<String> custom;
-                newEvent = new Event(title.getText().toString(), "", description.getText().toString(), custom = new ArrayList<String>(), startTime.getText().toString(), endTime.getText().toString(), location.getText().toString());
-                ScheduleActivity.populateListView(newEvent);
+                Event event = new Event();
 
+                //Fetch the elements from the GUI
+                title = (EditText)getView().findViewById(R.id.editText);
+                date = (EditText)getView().findViewById(R.id.editText2);
+                startTime = (EditText)getView().findViewById(R.id.editText3);
+                endTime = (EditText)getView().findViewById(R.id.editText4);
+                location = (EditText)getView().findViewById(R.id.editText6);
+                link = (EditText)getView().findViewById(R.id.editText7);
+
+                try {
+                    //Sets each element within the GUI for this Event
+                    event.setTitle(title.getText().toString());
+                    event.setRawStart(date.getText().toString() + ", "+ startTime.getText().toString());
+                    event.setRawEnd(date.getText().toString() + ", " + startTime.getText().toString());
+                    event.setLink(link.getText().toString());
+                    event.setLocation(location.getText().toString());
+
+                    //Populate the schedule with this new event:
+                    ScheduleActivity.populateListView(event);
+
+                    //Goto the schedule:
+                    Fragment newAct = new ScheduleActivity();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, newAct).commit();
+                }
+                catch(Exception e) {
+                    Toast.makeText(getActivity(), "Error, field not filled out.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
 
     @Override

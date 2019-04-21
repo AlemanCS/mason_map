@@ -60,6 +60,22 @@ public class Location {
         this.latlng = latlng;
     }
 
+    /*
+     This is used to remove words that would hurt the search results, such as Building, Hall, etc.
+     */
+    public String getParsedName(){
+        String result = this.name.toLowerCase();
+
+        result = result.toLowerCase();
+        result = result.replace("building", "");
+        result = result.replace("hall", "");
+        result = result.replace("park", "");
+        result = result.replace("the", "");
+        result = result.replace("  ", " ");
+
+        return result;
+    }
+
     public String toString(){
         return String.format("Code: %s, Building: %s, at: LatLong: %s", this.code, this.name, this.latlng.toString());
     }

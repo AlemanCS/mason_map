@@ -45,14 +45,19 @@ public class MainActivity extends AppCompatActivity {
                 selectedFrag).commit();
     }
 
+    //Creates the only View we use within the program:
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Sets Activity Main to the View
         setContentView(R.layout.activity_main);
 
+        //Sets the navigation bar:
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        //Load an instance state if there is one:
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FeedActivity()).commit();
