@@ -83,15 +83,15 @@ public class ReadCSV {
     /*
       Currently not fully implemented, it needs some work, but it is operational.
      */
-    public LatLng getLatLng(Event event){
+    public LatLng getLatLng(Event event) {
         Location location = null;
         LatLng result;
         String eventLocation = event.getLocation().toLowerCase();
 
         //First check to see if it matches the building name::
-        for(Location local : this.locations){
-            if(eventLocation.contains(local.getParsedName()) ||
-                    eventLocation.equals(local.getCode())){
+        for (Location local : this.locations) {
+            if (eventLocation.contains(local.getParsedName()) ||
+                    eventLocation.equals(local.getCode())) {
                 location = local;
                 break;
             }
@@ -99,18 +99,53 @@ public class ReadCSV {
         }
 
         // Was still not found, lets set it to GMU itself....
-        if(location == null){
-             Log.e(TAG, "Could not find location, " + event.getLocation());
-             result = new LatLng(38.8315, -77.3115);
+        if (location == null) {
+            Log.e(TAG, "Could not find location, " + event.getLocation());
+            result = new LatLng(38.8315, -77.3115);
         }
         //Location was found, set result to location.
-        else{
+        else {
             Log.d(TAG, "Location Assumed: " + location.getName() + "; Real Location: " + event.getLocation());
             result = location.getLatlng();
 
             //Just a Null Condition, never reached unless file is missing data.
-            if(result == null){
+            if (result == null) {
                 Log.e(TAG, "Could not find coordinates, " + location.getName());
+                result = new LatLng(38.8315, -77.3115);
+            }
+        }
+
+        return result;
+    }
+    //Gets the Lat Lng from a given string from search bar of map
+    public LatLng getLatLng(String location) {
+        Location location1 = null;
+        LatLng result;
+        String eventLocation = location.toLowerCase();
+
+        //First check to see if it matches the building name::
+        for (Location local : this.locations) {
+            if (eventLocation.contains(local.getParsedName()) ||
+                    eventLocation.equals(local.getCode())) {
+                location1 = local;
+                break;
+            }
+
+        }
+
+        // Was still not found, lets set it to GMU itself....
+        if (location1 == null) {
+            Log.e(TAG, "Could not find location, " + location);
+            result = new LatLng(38.8315, -77.3115);
+        }
+        //Location was found, set result to location.
+        else {
+            Log.d(TAG, "Location Assumed: " + location1.getName() + "; Real Location: " + location);
+            result = location1.getLatlng();
+
+            //Just a Null Condition, never reached unless file is missing data.
+            if (result == null) {
+                Log.e(TAG, "Could not find coordinates, " + location1.getName());
                 result = new LatLng(38.8315, -77.3115);
             }
         }

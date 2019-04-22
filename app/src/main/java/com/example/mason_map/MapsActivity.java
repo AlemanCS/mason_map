@@ -61,9 +61,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private boolean mPermissionDenied = false;
+    private ReadCSV csvAccess;
 
     private LatLng local;
     private String localTitle;
+
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup, Bundle bundle) {
@@ -89,9 +91,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         }
 
 
-        ReadCSV read = new ReadCSV();
+        this.csvAccess = new ReadCSV();
         try {
-             read.readFile(getResources().openRawResource(R.raw.buildings));
+             csvAccess.readFile(getResources().openRawResource(R.raw.buildings));
 
         }
         catch(Exception exception){
@@ -150,6 +152,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private void geoLocate(String input){
         Log.d(TAG,"GeoLocate: GeoLocating");
 
+        mMap.clear();
+
+        LatLng nav = csvAccess.getLatLng(input);
+        moveCamera(nav,DEFAULT_ZOOM,localTitle);
+
+        /*
         Geocoder geocoder = new Geocoder(getActivity());
         List<Address> list = new ArrayList<>();
         try{
@@ -164,6 +172,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
             moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
         }
+        */
 
     }
 
