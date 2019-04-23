@@ -5,7 +5,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
+    <style name="ThemeDialog"
+        parent="android:Theme.Material.Light.Dialog">
+    <item name="colorPrimary">@color/masonGreen</item>
+    <item name="colorPrimaryDark">@color/masonGreen</item>
+    <item name="colorAccent">@color/masonGreen</item>
+    </style>
+
+
 
 </resources>

@@ -125,12 +125,14 @@ public class ReadCSV {
 
         //First check to see if it matches the building name::
         for (Location local : this.locations) {
+            Log.d(TAG,local.getName());
+            Log.d(TAG,local.getParsedName());
+            Log.d(TAG,local.getCode());
             if (eventLocation.contains(local.getParsedName()) ||
                     eventLocation.equals(local.getCode())) {
                 location1 = local;
                 break;
             }
-
         }
 
         // Was still not found, lets set it to GMU itself....

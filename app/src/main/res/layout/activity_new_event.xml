@@ -14,93 +14,147 @@
         ></include>
 
     <!-- Title -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/header_margin"
+        android:layout_centerHorizontal="true"
+        android:elevation="8dp"
         android:text="@string/title_new"
         android:textColor="@color/offwhite"
         android:textSize="@dimen/header_textSize"
-        android:layout_centerHorizontal="true"
-        android:elevation="8dp"/>
+        tools:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="60dp">
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tool_bar"
-        android:layout_marginVertical="@dimen/new_margin"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/new_title"/>
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                android:layout_below="@id/tool_bar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="@dimen/new_margin"
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText"
-        android:layout_marginVertical="@dimen/new_margin"
+                android:ems="10"
+                android:hint="@string/new_title"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+        
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/new_Date" />
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editText"
+            android:layout_marginVertical="@dimen/new_margin"
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText2"
-        android:layout_marginVertical="@dimen/new_margin"
+            android:ems="10"
+            android:hint="@string/new_Date" />
+    </android.support.design.widget.TextInputLayout>
 
-        android:ems="10"
-        android:inputType="time"
-        android:hint="@string/new_Start" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editText2"
+            android:layout_marginVertical="@dimen/new_margin"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText3"
-        android:layout_marginVertical="@dimen/new_margin"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="@string/new_Start" />
+    </android.support.design.widget.TextInputLayout>
 
-        android:ems="10"
-        android:inputType="time"
-        android:hint="@string/new_End" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editText3"
+            android:layout_marginVertical="@dimen/new_margin"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText4"
-        android:layout_marginVertical="@dimen/new_margin"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="@string/new_End" />
+    </android.support.design.widget.TextInputLayout>
 
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/new_Location" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/editText6"
-        android:layout_marginVertical="@dimen/new_margin"
-        android:ems="10"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editText4"
+            android:layout_marginVertical="@dimen/new_margin"
 
-        android:inputType="text"
-        android:hint="@string/new_Link" />
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/new_Location" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/editText7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/editText6"
+            android:layout_marginVertical="@dimen/new_margin"
+            android:ems="10"
+
+            android:inputType="text"
+            android:hint="@string/new_Link" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/createEvent"
@@ -112,5 +166,6 @@
         android:layout_marginVertical="@dimen/new_margin"
 
         android:text="@string/new_Submit" />
+    </LinearLayout>
 
 </RelativeLayout>
