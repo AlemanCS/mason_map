@@ -98,7 +98,12 @@ public class NewEventActivity extends Fragment {
                                         hour = 12;
                                     }
                                 }
-                                startTime.setText(hour + ":" + sMinute + " " + time);
+                                if(sMinute == 0){
+                                    startTime.setText(hour + ":" +  "00 " + time);
+                                }
+                                else {
+                                    startTime.setText(hour + ":" + sMinute + " " + time);
+                                }
                             }
                         }, hour, minutes, false);
                 startTimepicker.show();
@@ -131,7 +136,12 @@ public class NewEventActivity extends Fragment {
                                     }
 
                                 }
-                                endTime.setText(hour + ":" + sMinute + " " + time);
+                                if(sMinute == 0){
+                                    endTime.setText(hour + ":" +  "00 " + time);
+                                }
+                                else {
+                                    endTime.setText(hour + ":" + sMinute + " " + time);
+                                }
                             }
                         }, hour, minutes, false);
                 endTimepicker.show();
