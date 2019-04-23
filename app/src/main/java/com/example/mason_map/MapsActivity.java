@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
@@ -117,6 +118,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Hide the keyboard since we no longer need it.
+                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
                 geoLocate(parent.getItemAtPosition(position).toString());
             }
         });
@@ -124,6 +129,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
             public boolean onEditorAction(TextView view, int action, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (action == EditorInfo.IME_ACTION_DONE)) {
                     if(autocompleteView.getAdapter().getCount() > 0) {
+                        //Hide the keyboard since we no longer need it.
+                        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                        in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
+                        //Navigate
                         geoLocate(autocompleteView.getAdapter().getItem(0).toString());
                     }
                 }
