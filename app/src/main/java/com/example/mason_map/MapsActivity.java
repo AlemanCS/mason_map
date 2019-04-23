@@ -111,13 +111,23 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         List<String> buildingList = Arrays.asList(buildArr);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), layoutItemId, buildingList);
 
-        AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
+        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
         autocompleteView.setAdapter(adapter);
         autocompleteView.setThreshold(1);
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 geoLocate(parent.getItemAtPosition(position).toString());
+            }
+        });
+        autocompleteView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView view, int action, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (action == EditorInfo.IME_ACTION_DONE)) {
+                    if(autocompleteView.getAdapter().getCount() > 0) {
+                        geoLocate(autocompleteView.getAdapter().getItem(0).toString());
+                    }
+                }
+                return false;
             }
         });
         /*
@@ -174,12 +184,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         mMap.clear();
 
+        String temp = input;
         input = input.replace(" ","");
 
         LatLng nav = csvAccess.getLatLng(input);
 
         setLocation(nav,input);
-        moveCamera(local,DEFAULT_ZOOM,localTitle);
+        moveCamera(local,DEFAULT_ZOOM,temp);
 
         /*
         Geocoder geocoder = new Geocoder(getActivity());
