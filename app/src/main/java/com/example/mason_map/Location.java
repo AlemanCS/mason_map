@@ -68,10 +68,12 @@ public class Location {
 
         result = result.toLowerCase();
         result = result.replace("building", "");
+        result = result.replace("library", "");
         result = result.replace("hall", "");
         result = result.replace("park", "");
         result = result.replace("the", "");
         result = result.replace("  ", " ");
+        result = result.replace(" ", "");
 
         return result;
     }

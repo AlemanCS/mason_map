@@ -155,7 +155,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap.clear();
 
         LatLng nav = csvAccess.getLatLng(input);
-        moveCamera(nav,DEFAULT_ZOOM,localTitle);
+
+        setLocation(nav,input);
+        moveCamera(local,DEFAULT_ZOOM,localTitle);
 
         /*
         Geocoder geocoder = new Geocoder(getActivity());
