@@ -154,4 +154,14 @@ public class ReadCSV {
 
         return result;
     }
+
+    public String[] locationsStrings(){
+        String[] locations = new String[this.locations.size()];
+        int i = 0;
+        for(Location local:this.locations){
+            locations[i] = local.getName();
+            i++;
+        }
+        return locations;
+    }
 }

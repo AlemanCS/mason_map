@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import java.util.Arrays;
+import android.widget.AutoCompleteTextView;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -79,7 +83,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSearchText = (SearchView) view.findViewById(R.id.mapSearch);
+        //mSearchText = (SearchView) view.findViewById(R.id.mapSearch);
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
@@ -87,7 +91,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         if(this.localTitle == null){
             this.local = new LatLng(38.8315, -77.3115);
             this.localTitle = "George Mason University";
-
         }
 
 
@@ -102,6 +105,22 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     }
 
     private void init(){
+
+        int layoutItemId = android.R.layout.simple_dropdown_item_1line;
+        String[] buildArr = csvAccess.locationsStrings();
+        List<String> buildingList = Arrays.asList(buildArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), layoutItemId, buildingList);
+
+        AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
+        autocompleteView.setAdapter(adapter);
+        autocompleteView.setThreshold(1);
+        autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                geoLocate(parent.getItemAtPosition(position).toString());
+            }
+        });
+        /*
         SearchView searching = this.getView().findViewById(R.id.mapSearch);
         searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -116,6 +135,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
                 return false;
             }
         });
+        */
     }
 
 
