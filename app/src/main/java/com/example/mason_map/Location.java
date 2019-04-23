@@ -74,6 +74,7 @@ public class Location {
         result = result.replace("the", "");
         result = result.replace("  ", " ");
         result = result.replace(" ", "");
+        result = result.replace("-","");
 
         return result;
     }

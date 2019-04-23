@@ -86,7 +86,7 @@ public class ReadCSV {
     public LatLng getLatLng(Event event) {
         Location location = null;
         LatLng result;
-        String eventLocation = event.getLocation().toLowerCase();
+        String eventLocation = getParsedName(event.getLocation());
 
         //First check to see if it matches the building name::
         for (Location local : this.locations) {
@@ -121,13 +121,10 @@ public class ReadCSV {
     public LatLng getLatLng(String location) {
         Location location1 = null;
         LatLng result;
-        String eventLocation = location.toLowerCase();
+        String eventLocation = getParsedName(location);
 
         //First check to see if it matches the building name::
         for (Location local : this.locations) {
-            Log.d(TAG,local.getName());
-            Log.d(TAG,local.getParsedName());
-            Log.d(TAG,local.getCode());
             if (eventLocation.contains(local.getParsedName()) ||
                     eventLocation.equals(local.getCode())) {
                 location1 = local;
@@ -163,5 +160,21 @@ public class ReadCSV {
             i++;
         }
         return locations;
+    }
+
+    private String getParsedName(String result){
+
+        result = result.toLowerCase();
+        result = result.replace("building", "");
+        result = result.replace("library", "");
+        result = result.replace("hall", "");
+        result = result.replace("park", "");
+        result = result.replace("the", "");
+        result = result.replace("  ", " ");
+        result = result.replace(" ", "");
+        result = result.replace("-","");
+        result = result.replace("room","");
+
+        return result;
     }
 }

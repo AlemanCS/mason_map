@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -58,7 +60,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     private SearchView mSearchText;
 
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 17f;
 
     private GoogleMap mMap;
 
@@ -111,25 +113,32 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         List<String> buildingList = Arrays.asList(buildArr);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), layoutItemId, buildingList);
 
-        AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
+        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
         autocompleteView.setAdapter(adapter);
         autocompleteView.setThreshold(1);
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Hide the keyboard since we no longer need it.
+                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
                 geoLocate(parent.getItemAtPosition(position).toString());
             }
         });
-
         autocompleteView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    geoLocate(v.getText().toString());
-                    handled = true;
+            public boolean onEditorAction(TextView view, int action, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (action == EditorInfo.IME_ACTION_DONE)) {
+                    if (autocompleteView.getAdapter().getCount() > 0) {
+                        //Hide the keyboard since we no longer need it.
+                        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                        in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
+                        //Navigate
+                        geoLocate(autocompleteView.getAdapter().getItem(0).toString());
+                    }
                 }
-                return handled;
+                return true;
             }
         });
         /*
@@ -166,7 +175,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap = googleMap;
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,15f));
 
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
@@ -186,12 +195,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         mMap.clear();
 
+        String temp = input;
         input = input.replace(" ","");
 
         LatLng nav = csvAccess.getLatLng(input);
 
         setLocation(nav,input);
-        moveCamera(local,DEFAULT_ZOOM,localTitle);
+        moveCamera(local,DEFAULT_ZOOM,temp);
 
         /*
         Geocoder geocoder = new Geocoder(getActivity());
@@ -216,9 +226,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
 
-        MarkerOptions options = new MarkerOptions().position(Latlng).title(title);
+        Marker info = mMap.addMarker(new MarkerOptions().position(Latlng).title(title));
+        ((Marker) info).showInfoWindow();
 
-        mMap.addMarker(options);
     }
 
     public void onPoiClick(PointOfInterest poi) {
