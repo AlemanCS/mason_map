@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
@@ -112,32 +111,25 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         List<String> buildingList = Arrays.asList(buildArr);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), layoutItemId, buildingList);
 
-        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
+        AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
         autocompleteView.setAdapter(adapter);
         autocompleteView.setThreshold(1);
         autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Hide the keyboard since we no longer need it.
-                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
-
                 geoLocate(parent.getItemAtPosition(position).toString());
             }
         });
-        autocompleteView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView view, int action, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (action == EditorInfo.IME_ACTION_DONE)) {
-                    if(autocompleteView.getAdapter().getCount() > 0) {
-                        //Hide the keyboard since we no longer need it.
-                        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                        in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
 
-                        //Navigate
-                        geoLocate(autocompleteView.getAdapter().getItem(0).toString());
-                    }
+        autocompleteView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    geoLocate(v.getText().toString());
+                    handled = true;
                 }
-                return false;
+                return handled;
             }
         });
         /*
@@ -194,13 +186,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         mMap.clear();
 
-        String temp = input;
         input = input.replace(" ","");
 
         LatLng nav = csvAccess.getLatLng(input);
 
         setLocation(nav,input);
-        moveCamera(local,DEFAULT_ZOOM,temp);
+        moveCamera(local,DEFAULT_ZOOM,localTitle);
 
         /*
         Geocoder geocoder = new Geocoder(getActivity());
