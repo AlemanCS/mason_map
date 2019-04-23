@@ -154,6 +154,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         mMap.clear();
 
+        input = input.replace(" ","");
+
         LatLng nav = csvAccess.getLatLng(input);
 
         setLocation(nav,input);
