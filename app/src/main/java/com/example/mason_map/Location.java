@@ -66,7 +66,11 @@ public class Location {
     public String getParsedName(){
         String result = this.name.toLowerCase();
 
+
         result = result.toLowerCase();
+        if(result.contains("room")){
+            result = result.substring(0,result.indexOf("room"));
+        }
         result = result.replace("building", "");
         result = result.replace("library", "");
         result = result.replace("hall", "");
@@ -75,7 +79,9 @@ public class Location {
         result = result.replace("  ", " ");
         result = result.replace(" ", "");
         result = result.replace("-","");
+        result = result.replace("room","");
         result = result.replace("Nguyen","");
+        result = result.replace("meeting","");
 
         return result;
     }
