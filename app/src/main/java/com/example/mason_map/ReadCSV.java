@@ -174,6 +174,7 @@ public class ReadCSV {
         result = result.replace(" ", "");
         result = result.replace("-","");
         result = result.replace("room","");
+        result = result.replace("Nguyen","");
 
         return result;
     }

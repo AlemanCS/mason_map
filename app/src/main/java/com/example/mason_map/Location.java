@@ -75,6 +75,7 @@ public class Location {
         result = result.replace("  ", " ");
         result = result.replace(" ", "");
         result = result.replace("-","");
+        result = result.replace("Nguyen","");
 
         return result;
     }

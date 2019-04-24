@@ -1,8 +1,6 @@
 package com.example.mason_map;
 
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -14,9 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.util.Arrays;
 import android.widget.AutoCompleteTextView;
-
-
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
@@ -33,21 +28,11 @@ import android.content.pm.PackageManager;
 import android.Manifest;
 import android.support.annotation.NonNull;
 import android.location.Location;
-import com.google.android.gms.maps.UiSettings;
-
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.SearchView;
-
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,9 +52,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private boolean mPermissionDenied = false;
+
     private ReadCSV csvAccess;
 
     private LatLng local;
+
     private String localTitle;
 
 
@@ -84,8 +71,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //mSearchText = (SearchView) view.findViewById(R.id.mapSearch);
 
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
@@ -106,6 +91,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         }
     }
 
+    //Sets up Autocomplete Text View
     private void init(){
 
         int layoutItemId = android.R.layout.simple_dropdown_item_1line;
@@ -141,22 +127,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
                 return true;
             }
         });
-        /*
-        SearchView searching = this.getView().findViewById(R.id.mapSearch);
-        searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String input) {
-                geoLocate(input);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String input) {
-                //geoLocate(input);
-                return false;
-            }
-        });
-        */
     }
 
 
@@ -202,23 +172,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         setLocation(nav,input);
         moveCamera(local,DEFAULT_ZOOM,temp);
-
-        /*
-        Geocoder geocoder = new Geocoder(getActivity());
-        List<Address> list = new ArrayList<>();
-        try{
-            list = geocoder.getFromLocationName(input, 1);
-        }catch(IOException e){
-            Log.e(TAG,"GeoLocate: IOException : " + e.getMessage());
-        }
-
-        if(list.size() > 0){
-            Address address = list.get(0);
-            Log.d(TAG,"found a location" + address.toString());
-
-            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
-        }
-        */
 
     }
 
