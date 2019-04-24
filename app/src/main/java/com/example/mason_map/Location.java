@@ -68,6 +68,10 @@ public class Location {
 
 
         result = result.toLowerCase();
+        if(result.substring(0,2).equalsIgnoreCase("jc")){
+            result = result.substring(0,2);
+        }
+
         if(result.contains("room")){
             result = result.substring(0,result.indexOf("room"));
         }
