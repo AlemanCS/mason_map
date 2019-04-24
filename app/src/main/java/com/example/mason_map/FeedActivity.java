@@ -10,13 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.ListView;
-
 import com.example.mason_map.model.RSS;
 import com.example.mason_map.model.item.Item;
-
 import java.util.List;
 import java.util.ArrayList;
-
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;

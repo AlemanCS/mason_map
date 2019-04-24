@@ -1,19 +1,20 @@
 package com.example.mason_map;
 
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
-
-
-import com.google.android.gms.maps.CameraUpdate;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import java.util.Arrays;
+import android.widget.AutoCompleteTextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,21 +28,11 @@ import android.content.pm.PackageManager;
 import android.Manifest;
 import android.support.annotation.NonNull;
 import android.location.Location;
-import com.google.android.gms.maps.UiSettings;
-
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.SearchView;
-
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,16 +45,18 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
     private SearchView mSearchText;
 
-    private static final float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 17f;
 
     private GoogleMap mMap;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private boolean mPermissionDenied = false;
+
     private ReadCSV csvAccess;
 
     private LatLng local;
+
     private String localTitle;
 
 
@@ -79,15 +72,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSearchText = (SearchView) view.findViewById(R.id.mapSearch);
-
         SupportMapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
 
         if(this.localTitle == null){
             this.local = new LatLng(38.8315, -77.3115);
             this.localTitle = "George Mason University";
-
         }
 
 
@@ -101,19 +91,40 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         }
     }
 
+    //Sets up Autocomplete Text View
     private void init(){
-        SearchView searching = this.getView().findViewById(R.id.mapSearch);
-        searching.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String input) {
-                geoLocate(input);
-                return false;
-            }
 
+        int layoutItemId = android.R.layout.simple_dropdown_item_1line;
+        String[] buildArr = csvAccess.locationsStrings();
+        List<String> buildingList = Arrays.asList(buildArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), layoutItemId, buildingList);
+
+        final AutoCompleteTextView autocompleteView = (AutoCompleteTextView) getView().findViewById(R.id.mapSearch);
+        autocompleteView.setAdapter(adapter);
+        autocompleteView.setThreshold(1);
+        autocompleteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onQueryTextChange(String input) {
-                //geoLocate(input);
-                return false;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Hide the keyboard since we no longer need it.
+                InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
+                geoLocate(parent.getItemAtPosition(position).toString());
+            }
+        });
+        autocompleteView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView view, int action, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (action == EditorInfo.IME_ACTION_DONE)) {
+                    if (autocompleteView.getAdapter().getCount() > 0) {
+                        //Hide the keyboard since we no longer need it.
+                        InputMethodManager in = (InputMethodManager) getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                        in.hideSoftInputFromWindow(autocompleteView.getWindowToken(), 0);
+
+                        //Navigate
+                        geoLocate(autocompleteView.getAdapter().getItem(0).toString());
+                    }
+                }
+                return true;
             }
         });
     }
@@ -134,7 +145,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         mMap = googleMap;
 
         LatLng georgeMason = new LatLng(38.8315, -77.3115);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,DEFAULT_ZOOM));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(georgeMason,15f));
 
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
@@ -154,29 +165,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
 
         mMap.clear();
 
+        String temp = input;
         input = input.replace(" ","");
 
         LatLng nav = csvAccess.getLatLng(input);
 
         setLocation(nav,input);
-        moveCamera(local,DEFAULT_ZOOM,localTitle);
-
-        /*
-        Geocoder geocoder = new Geocoder(getActivity());
-        List<Address> list = new ArrayList<>();
-        try{
-            list = geocoder.getFromLocationName(input, 1);
-        }catch(IOException e){
-            Log.e(TAG,"GeoLocate: IOException : " + e.getMessage());
-        }
-
-        if(list.size() > 0){
-            Address address = list.get(0);
-            Log.d(TAG,"found a location" + address.toString());
-
-            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
-        }
-        */
+        moveCamera(local,DEFAULT_ZOOM,temp);
 
     }
 
@@ -184,9 +179,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, OnMyLo
         //Log.d(TAG,"Move Camera: moving the camera to lat: " ,+ Latlng.latitude + ", Lng : " + Latlng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Latlng,zoom));
 
-        MarkerOptions options = new MarkerOptions().position(Latlng).title(title);
+        Marker info = mMap.addMarker(new MarkerOptions().position(Latlng).title(title));
+        ((Marker) info).showInfoWindow();
 
-        mMap.addMarker(options);
     }
 
     public void onPoiClick(PointOfInterest poi) {

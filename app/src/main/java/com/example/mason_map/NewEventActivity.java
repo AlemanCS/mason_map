@@ -2,7 +2,6 @@ package com.example.mason_map;
 
 import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,23 +19,21 @@ import android.app.TimePickerDialog;
 import android.support.design.widget.TextInputLayout;
 
 
-import java.util.ArrayList;
-
 public class NewEventActivity extends Fragment {
 
     private static final String TAG = "NewEventActivity";
 
-    Button mButton;
-    EditText title;
-    EditText date;
-    EditText startTime;
-    EditText endTime;
-    EditText location;
-    EditText link;
-    DatePickerDialog datepicker;
-    TimePickerDialog startTimepicker;
-    TimePickerDialog endTimepicker;
-    TextInputLayout inputLayoutTitle, inputLayoutStart, inputLayoutEnd, inputLayoutDate, inputLayoutLocation, inputLayoutLink ;
+    private Button mButton;
+    private EditText title;
+    private EditText date;
+    private EditText startTime;
+    private EditText endTime;
+    private EditText location;
+    private EditText link;
+    private DatePickerDialog datepicker;
+    private TimePickerDialog startTimepicker;
+    private TimePickerDialog endTimepicker;
+    private TextInputLayout inputLayoutTitle, inputLayoutStart, inputLayoutEnd, inputLayoutDate, inputLayoutLocation, inputLayoutLink ;
 
 
 
